@@ -14,3 +14,53 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+.menu-bemvindo {
+    position: absolute;
+    top: 5%;
+    font-size: 2em;
+    text-align: start;
+}
+.menu-benef {
+    position: absolute;
+    top: 60%;
+    font-size: 1.5em;
+    color: whitesmoke;
+    text-align: start;
+}
+.menu-plano {
+    position: absolute;
+    top: 75%;
+    font-size: 1em;
+    color: whitesmoke;
+    text-align: start;
+}
+@media screen and (orientation: portrait) {
+    .menu-bar{
+        position: relative;
+        height: 30%;
+        padding-left: .6em;
+        padding-bottom: .5em;
+        background: map-get($colors, primary);
+    }    
+}
+
+@media screen and (orientation: landscape) {
+    .menu-bar{
+        position: relative;
+        height: 38%;
+        padding-left: .5em;
+        padding-bottom: .5em;
+        background: map-get($colors, primary);
+    }   
+}
+ion-navbar > .toolbar-background {
+  background-color: map-get($colors, primary);
+  color: #fff;
+}
+
+.toolbar-title-md {
+  padding: 0 12px;
+  font-size: 2rem;
+  font-weight: 500;
+  color: #fff;
+}

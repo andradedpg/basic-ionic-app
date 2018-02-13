@@ -1,50 +1,49 @@
+import { FormPage } from './../form/form-page';
+import { LoginProvider } from './../../providers/login/login';
 import { Component } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
-import { IonicPage, NavController, ToastController } from 'ionic-angular';
+import { NavController, NavParams, ToastController, LoadingController } from 'ionic-angular';
+import { HomePage } from '../home/home';
 
-import { User } from '../../providers/providers';
-import { MainPage } from '../pages';
-
-@IonicPage()
 @Component({
   selector: 'page-login',
-  templateUrl: 'login.html'
+  templateUrl: 'login.html',
 })
 export class LoginPage {
-  // The account fields for the login form.
-  // If you're using the username field with or without email, make
-  // sure to add it to the type
-  account: { email: string, password: string } = {
-    email: 'test@example.com',
-    password: 'test'
-  };
 
-  // Our translated text strings
-  private loginErrorString: string;
+  constructor(public navCtrl: NavController, 
+              public navParams: NavParams, 
+              public toastCtrl: ToastController, 
+              public _loadingController: LoadingController, 
+              private loginProvider: LoginProvider) {}
 
-  constructor(public navCtrl: NavController,
-    public user: User,
-    public toastCtrl: ToastController,
-    public translateService: TranslateService) {
+  fazerLogin(login) {
+   
+    let loading = this._loadingController.create({ content: 'Efetuando login...' });
+    let self = this;
+    let toast = this.toastCtrl.create({ duration: 1500 });
 
-    this.translateService.get('LOGIN_ERROR').subscribe((value) => {
-      this.loginErrorString = value;
-    })
-  }
+    loading.present();
 
-  // Attempt to login in through our User service
-  doLogin() {
-    this.user.login(this.account).subscribe((resp) => {
-      this.navCtrl.push(MainPage);
-    }, (err) => {
-      this.navCtrl.push(MainPage);
-      // Unable to log in
-      let toast = this.toastCtrl.create({
-        message: this.loginErrorString,
-        duration: 3000,
-        position: 'top'
-      });
+    this.loginProvider.fazerLogin(login).then((success) => {
+      
+      loading.dismiss();
+      toast.setMessage('Login com sucesso');
       toast.present();
+      toast.onDidDismiss(() => {
+        self.navCtrl.setRoot(HomePage);
+      });
+
+    }).catch((err) => {
+
+      toast.setMessage('Login ou senha inválido : ' + err);
+      toast.present();
+      loading.dismiss();
+
     });
   }
+
+  goFormulario() {
+    this.navCtrl.push(FormPage);
+  }
+
 }
