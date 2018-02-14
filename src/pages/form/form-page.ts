@@ -16,30 +16,28 @@ import {IonicPage,  NavController,  NavParams} from 'ionic-angular';
 })
 
 export class FormPage {
-  form: Form;
+  @Input() form: Form;
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               public http: Http) {
+    
+    this.form = new Form();
+    this.getForm();
   }
 
-  public getForm():Form {
-    let form:Form;
+  public getForm() {
     this.http.get('../assets/form.json').map(res => res.json()).subscribe(data => 
     {
-      this.form =  data.forms[1] as Form;
-      console.log(this.form);
+      this.form = data.forms[1] as Form;
     }); 
-    return form; 
-  }
-  
-  ionViewDidLoad(){
-      this.form = new Form();
-      this.form.id = 1;
-      this.form.description = "teste";
-      console.log(this.form);
   }
 
+  teste(){
+    console.log("entrou form");
+    
+  }
+  
   // public buildForm(){
   //   let q: Question;
   //   for (var i = 0; i < this.form.questions.length; i++) {

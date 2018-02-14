@@ -9,44 +9,45 @@ export class Question {
     private _category: Array<Category>;
     private _alternatives: Array<Alternatives>;
     private _type:Type;
-    
+
 	public get id(): number {
-		return this.id;
+		return this._id;
 	}
 
 	public set id(value: number) {
-		this.id = value;
+		this._id = value;
 	}
 
 	public get description(): string {
-		return this.description;
+		return this._description;
 	}
 
 	public set description(value: string) {
-		this.description = value;
+		this._description = value;
 	}
 
 	public get category(): Array<Category> {
-		return this.category;
+		return this._category;
 	}
 
 	public set category(value: Array<Category>) {
-		this.category = value;
+		this._category = value;
 	}
 
 	public get alternatives(): Array<Alternatives> {
-		return this.alternatives;
+		return this._alternatives;
 	}
 
 	public set alternatives(value: Array<Alternatives>) {
-		this.alternatives = value;
+		this._alternatives = value;
 	}
 
 	public get type(): Type {
-		return this.type;
+		return this._type;
 	}
 
 	public set type(value: Type) {
-		this.type = value;
+		this._type = value;
 	}
+    
 }

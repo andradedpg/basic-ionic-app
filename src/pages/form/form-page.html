@@ -7,14 +7,17 @@
 <ion-header>
 
   <ion-navbar>
-     <!-- <ion-title>{{form.id}}</ion-title>  -->
+      <ion-title>{{form.description}}</ion-title>  
   </ion-navbar>
 
 </ion-header>
 
 
-<!-- <ion-content padding *ngFor="let q of form.questions">
+ <ion-content padding *ngFor="let q of form.questions">
   <ion-item-group *ngIf="q.type.id === 1">
-
+      <select-list alternatives="q.alternatives" questionDescription="q.description">
+      </select-list>
   </ion-item-group>
-</ion-content> -->
+  <button ion-button (click)="teste()">text</button>
+    
+</ion-content> 

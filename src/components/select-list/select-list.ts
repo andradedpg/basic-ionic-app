@@ -1,5 +1,6 @@
+import { Alternatives } from './../../domain/alternatives';
 import { Question } from './../../domain/question';
-import { Component, Input } from '@angular/core';
+import { Component, Input, EventEmitter, Output } from '@angular/core';
 
 /**
  * Generated class for the DropdownlistComponent component.
@@ -13,10 +14,17 @@ import { Component, Input } from '@angular/core';
 })
 export class SelectListComponent {
   
-  @Input() question: Question;
+  @Input() alternatives: Alternatives;
+  @Input() questionDescription : string;
   
   constructor() {
-    console.log('Hello SelectListComponent Component');
+    console.log(this.alternatives);
+    console.log(this.questionDescription);
   }
+  
+  teste(){
+    console.log("entrou");
+  }
+
 
 }

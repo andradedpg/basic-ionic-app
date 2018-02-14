@@ -1,8 +1,6 @@
-<ion-list>
-  <ion-item>
-    <ion-label>{{question.description}}</ion-label>
-    <ion-select *ngFor="let alt of question.alternatives" >
-      <ion-option value="alt.id">{{alt.description}}</ion-option>
-    </ion-select>
-  </ion-item>
-</ion-list>
+<ion-item>
+   <ion-label>{{questionDescription}}</ion-label> 
+  <ion-select [(ngModel)]="alternatives">
+    <ion-option *ngFor="let alter of alternatives" [value]="alter">{{alternatives.description}}</ion-option>
+  </ion-select>
+</ion-item>

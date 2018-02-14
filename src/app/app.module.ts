@@ -1,4 +1,3 @@
-import { SelectListComponent } from './../components/select-list/select-list';
 import { CameraServiceProvider } from './../providers/camera-service/camera-service';
 import { Camera } from '@ionic-native/camera';
 // import { CameraPreview } from '@ionic-native/camera-preview';
@@ -29,7 +28,11 @@ import { ConnectivityService } from './../providers/connectivity-service';
 import { LoginProvider } from '../providers/login/login';
 
 // Component
-
+import { InputComponent } from './../components/input/input';
+import { RadioSnComponent } from './../components/radio-sn/radio-sn';
+import { RadioComponent } from './../components/radio/radio';
+import { CheckboxComponent } from './../components/checkbox/checkbox';
+import { SelectListComponent } from './../components/select-list/select-list';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
@@ -40,6 +43,11 @@ import 'rxjs/add/operator/toPromise';
     LoginPage,
     HomePage,
     FormPage,
+    SelectListComponent,
+    CheckboxComponent,
+    RadioComponent,
+    RadioSnComponent,
+    InputComponent,
   ],
   imports: [
     BrowserModule,

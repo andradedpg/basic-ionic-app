@@ -1,3 +1,4 @@
+import { SelectListComponent } from './../../components/select-list/select-list';
 import { FormPage } from './form-page';
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
@@ -8,9 +9,10 @@ import { IonicPageModule } from 'ionic-angular';
   ],
   imports: [
     IonicPageModule.forChild(FormPage),
+    SelectListComponent
   ],
   exports: [
-    FormPage
+    FormPage,
   ]
 })
 export class FormPageModule {}

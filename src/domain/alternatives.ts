@@ -7,18 +7,18 @@ export class Alternatives {
     private _description: string;
     
     public get id(): number {
-        return this.id;
+        return this._id;
     }
 
     public set id(value: number) {
-        this.id = value;
+        this._id = value;
     }
 
     public get description(): string {
-        return this.description;
+        return this._description;
     }
 
     public set description(value: string) {
-        this.description = value;
+        this._description = value;
     }
 }
