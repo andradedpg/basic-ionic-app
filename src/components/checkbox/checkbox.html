@@ -1,4 +1,9 @@
-<!-- Generated template for the CheckboxComponent component -->
-<div>
-  {{text}}
-</div>
+<ion-list>
+  <ion-list-header>
+    {{questionDescription}}
+  </ion-list-header>
+    <ion-item *ngFor="let alter of alternatives">
+      <ion-label>{{alter.description}}</ion-label>
+      <ion-checkbox [(ngModel)]="alternative"></ion-checkbox>
+    </ion-item>
+</ion-list>

@@ -1,7 +1,7 @@
 import { Type } from './type';
 import { Category } from "./category";
 
-export class Alternatives {
+export class Alternative {
 
     private _id: number;
     private _description: string;

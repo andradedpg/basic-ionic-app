@@ -1,3 +1,4 @@
+import { Alternative } from './../../domain/alternative';
 import { Question } from './../../domain/question';
 import { Component, Input } from '@angular/core';
 
@@ -13,7 +14,8 @@ import { Component, Input } from '@angular/core';
 })
 export class CheckboxComponent {
   
-  @Input() question: Question;
+  @Input() alternatives: Array<Alternative>;
+  @Input() questionDescription: string;
   
   constructor() {
     console.log('Hello CheckboxComponent Component');

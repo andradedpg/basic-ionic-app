@@ -1,4 +1,4 @@
-import { Alternatives } from './../../domain/alternatives';
+import { Alternative } from './../../domain/alternative';
 import { Question } from './../../domain/question';
 import { Component, Input, EventEmitter, Output } from '@angular/core';
 
@@ -13,17 +13,21 @@ import { Component, Input, EventEmitter, Output } from '@angular/core';
   templateUrl: 'select-list.html'
 })
 export class SelectListComponent {
-  
-  @Input() alternatives: Alternatives;
-  @Input() questionDescription : string;
-  
+
+  @Input() alternatives: Array<Alternative>;
+  @Input() questionDescription: string;
+
   constructor() {
-    console.log(this.alternatives);
-    console.log(this.questionDescription);
+    this.alternatives = new Array<Alternative>();
   }
-  
+
+  compareFn(a1: Alternative, a2: Alternative): boolean {
+    return a1 && a2 ? a1.id === a2.id : a1 === a2;
+  }
+
   teste(){
-    console.log("entrou");
+    console.log("teste: ",this.alternatives);
+    
   }
 
 

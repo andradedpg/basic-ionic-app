@@ -8,12 +8,12 @@ import { Component, Input } from '@angular/core';
  * for more info on Angular Components.
  */
 @Component({
-  selector: 'input',
+  selector: 'input-text',
   templateUrl: 'input.html'
 })
 export class InputComponent {
 
-  @Input() question: Question;
+  @Input() questionDescription: string;
 
   constructor() {
     console.log('Hello InputComponent Component');

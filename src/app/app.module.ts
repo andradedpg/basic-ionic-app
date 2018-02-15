@@ -29,7 +29,7 @@ import { LoginProvider } from '../providers/login/login';
 
 // Component
 import { InputComponent } from './../components/input/input';
-import { RadioSnComponent } from './../components/radio-sn/radio-sn';
+import { RadioYnComponent } from './../components/radio-yn/radio-yn';
 import { RadioComponent } from './../components/radio/radio';
 import { CheckboxComponent } from './../components/checkbox/checkbox';
 import { SelectListComponent } from './../components/select-list/select-list';
@@ -46,7 +46,7 @@ import 'rxjs/add/operator/toPromise';
     SelectListComponent,
     CheckboxComponent,
     RadioComponent,
-    RadioSnComponent,
+    RadioYnComponent,
     InputComponent,
   ],
   imports: [

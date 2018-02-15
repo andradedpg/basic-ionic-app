@@ -1,3 +1,4 @@
+import { Alternative } from './../../domain/alternative';
 import {Question} from '../../domain/question';
 import { Form } from './../../domain/form';
 import { HttpService } from './../../providers/http-service';
@@ -16,7 +17,7 @@ import {IonicPage,  NavController,  NavParams} from 'ionic-angular';
 })
 
 export class FormPage {
-  @Input() form: Form;
+  form: Form;
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
@@ -33,11 +34,6 @@ export class FormPage {
     }); 
   }
 
-  teste(){
-    console.log("entrou form");
-    
-  }
-  
   // public buildForm(){
   //   let q: Question;
   //   for (var i = 0; i < this.form.questions.length; i++) {

@@ -1,3 +1,4 @@
+import { Alternative } from './../../domain/alternative';
 import { Question } from './../../domain/question';
 import { Form } from './../../domain/form';
 import { Component, Input } from '@angular/core';
@@ -14,7 +15,9 @@ import { Component, Input } from '@angular/core';
 })
 export class RadioComponent {
 
-  @Input() question: Question;
+  @Input() alternatives: Array<Alternative>;
+  @Input() questionDescription: string;
+  
   constructor() {
     console.log('Hello RadioComponent Component');
   }

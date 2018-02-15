@@ -1,14 +1,24 @@
+import { CheckboxComponent } from './checkbox/checkbox';
+import { RadioComponent } from './radio/radio';
 import { NgModule } from '@angular/core';
 import { SelectListComponent } from "./select-list/select-list";
 import { InputComponent } from './input/input';
-import { RadioSnComponent } from './radio-sn/radio-sn';
+import { RadioYnComponent } from './radio-yn/radio-yn';
 @NgModule({
-	declarations: [SelectListComponent,
-    InputComponent,
-    RadioSnComponent],
-	imports: [],
-	exports: [SelectListComponent,
-    InputComponent,
-    RadioSnComponent]
+    declarations: [
+        SelectListComponent,
+        InputComponent,
+        RadioComponent,
+        RadioYnComponent,
+        CheckboxComponent,
+    ],
+    imports: [],
+    exports: [
+        SelectListComponent,
+        InputComponent,
+        RadioComponent,
+        RadioYnComponent,
+        CheckboxComponent,
+    ]
 })
-export class ComponentsModule {}
+export class ComponentsModule { }

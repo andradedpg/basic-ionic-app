@@ -1,4 +1,4 @@
-import { Alternatives } from './alternatives';
+import { Alternative } from './alternative';
 import { Type } from './type';
 import { Category } from "./category";
 
@@ -6,8 +6,8 @@ export class Question {
 
     private _id:number;
     private _description:string;
-    private _category: Array<Category>;
-    private _alternatives: Array<Alternatives>;
+    private _categories: Array<Category>;
+    private _alternatives: Array<Alternative>;
     private _type:Type;
 
 	public get id(): number {
@@ -26,19 +26,19 @@ export class Question {
 		this._description = value;
 	}
 
-	public get category(): Array<Category> {
-		return this._category;
+	public get categories(): Array<Category> {
+		return this._categories;
 	}
 
-	public set category(value: Array<Category>) {
-		this._category = value;
+	public set categories(value: Array<Category>) {
+		this._categories = value;
 	}
 
-	public get alternatives(): Array<Alternatives> {
+	public get alternatives(): Array<Alternative> {
 		return this._alternatives;
 	}
 
-	public set alternatives(value: Array<Alternatives>) {
+	public set alternatives(value: Array<Alternative>) {
 		this._alternatives = value;
 	}
 

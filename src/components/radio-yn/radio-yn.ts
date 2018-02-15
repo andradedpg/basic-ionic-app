@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 /**
  * Generated class for the RadioSnComponent component.
@@ -7,16 +7,14 @@ import { Component } from '@angular/core';
  * for more info on Angular Components.
  */
 @Component({
-  selector: 'radio-sn',
-  templateUrl: 'radio-sn.html'
+  selector: 'radio-yn',
+  templateUrl: 'radio-yn.html'
 })
-export class RadioSnComponent {
-
-  text: string;
+export class RadioYnComponent {
+  
+  @Input() questionDescription: string;
 
   constructor() {
-    console.log('Hello RadioSnComponent Component');
-    this.text = 'Hello World';
   }
 
 }

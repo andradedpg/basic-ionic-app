@@ -13,11 +13,16 @@
 </ion-header>
 
 
- <ion-content padding *ngFor="let q of form.questions">
-  <ion-item-group *ngIf="q.type.id === 1">
-      <select-list alternatives="q.alternatives" questionDescription="q.description">
+ <ion-content padding>
+   <ion-item-group *ngFor="let q of form.questions">
+    <ion-item>
+      <select-list *ngIf="q.type.description === 'select'" [alternatives]="q.alternatives" [questionDescription]="q.description">
       </select-list>
-  </ion-item-group>
-  <button ion-button (click)="teste()">text</button>
+      <input-text *ngIf="q.type.description === 'input'" [questionDescription]="q.description"></input-text>
+      <radio *ngIf="q.type.description === 'radio'" [alternatives]="q.alternatives" [questionDescription]="q.description"></radio>
+      <checkbox *ngIf="q.type.description === 'check'" [alternatives]="q.alternatives" [questionDescription]="q.description"></checkbox>
+    </ion-item>
+   </ion-item-group>
     
+    <button ion-button (click)="teste()">text</button>
 </ion-content> 
