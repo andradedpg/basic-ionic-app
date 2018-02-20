@@ -1,4 +1,3 @@
-import { Question } from './../../domain/question';
 import { Component, Input } from '@angular/core';
 
 /**

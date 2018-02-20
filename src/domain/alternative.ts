@@ -1,4 +1,3 @@
-import { Type } from './type';
 import { Category } from "./category";
 
 export class Alternative {

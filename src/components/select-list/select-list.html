@@ -1,5 +1,7 @@
+<ion-item class="question-title">  
+  <ion-label>{{questionDescription}}</ion-label>
+</ion-item>
 <ion-item>
-   <ion-label>{{questionDescription}}</ion-label> 
   <ion-select [(ngModel)]="alternative">
     <ion-option *ngFor="let alter of alternatives" [value]="alter" (onclick)="teste()">{{alter.description}}</ion-option>
   </ion-select>

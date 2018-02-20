@@ -1,6 +1,5 @@
 import { Alternative } from './../../domain/alternative';
-import { Question } from './../../domain/question';
-import { Component, Input, EventEmitter, Output } from '@angular/core';
+import { Component, Input} from '@angular/core';
 
 /**
  * Generated class for the DropdownlistComponent component.

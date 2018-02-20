@@ -1,10 +1,7 @@
-import { Alternative } from './../../domain/alternative';
-import {Question} from '../../domain/question';
 import { Form } from './../../domain/form';
-import { HttpService } from './../../providers/http-service';
 import { HttpModule, Http } from '@angular/http';
-import { Component, Input } from '@angular/core';
-import {IonicPage,  NavController,  NavParams} from 'ionic-angular';
+import { Component, ViewChild, Input } from '@angular/core';
+import {Slides, NavController,   NavParams} from 'ionic-angular';
 /**
  * Generated class for the FormPage page.
  *
@@ -17,7 +14,9 @@ import {IonicPage,  NavController,  NavParams} from 'ionic-angular';
 })
 
 export class FormPage {
-  form: Form;
+  @Input() form: Form;
+  @ViewChild(Slides) slides: Slides;
+
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
@@ -27,6 +26,14 @@ export class FormPage {
     this.getForm();
   }
 
+  slideNext(){
+    this.slides.slideNext();
+  }
+
+  slidePrev(){
+    this.slides.slidePrev();
+  }
+
   public getForm() {
     this.http.get('../assets/form.json').map(res => res.json()).subscribe(data => 
     {
@@ -34,14 +41,9 @@ export class FormPage {
     }); 
   }
 
-  // public buildForm(){
-  //   let q: Question;
-  //   for (var i = 0; i < this.form.questions.length; i++) {
-  //     q = this.form.questions[i];
-  //     if(q.type.id === 1){
-        
-  //     }
-  //   }
-  // }
+  public teste(){
+    console.log(this.form);
+    
+  }
 
 }

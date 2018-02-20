@@ -5,24 +5,26 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
   <ion-navbar>
       <ion-title>{{form.description}}</ion-title>  
   </ion-navbar>
-
 </ion-header>
-
-
  <ion-content padding>
-   <ion-item-group *ngFor="let q of form.questions">
-    <ion-item>
-      <select-list *ngIf="q.type.description === 'select'" [alternatives]="q.alternatives" [questionDescription]="q.description">
-      </select-list>
-      <input-text *ngIf="q.type.description === 'input'" [questionDescription]="q.description"></input-text>
-      <radio *ngIf="q.type.description === 'radio'" [alternatives]="q.alternatives" [questionDescription]="q.description"></radio>
-      <checkbox *ngIf="q.type.description === 'check'" [alternatives]="q.alternatives" [questionDescription]="q.description"></checkbox>
-    </ion-item>
-   </ion-item-group>
-    
-    <button ion-button (click)="teste()">text</button>
+
+  <ion-slides paginationClickable=true initialSlide=0 loop=true>
+    <ion-item-group *ngFor="let q of form.questions; index as i">
+      <ion-slide>
+        <select-list *ngIf="q.type.description === 'select'" [alternatives]="q.alternatives" [questionDescription]="(i+1)+' - '+q.description">
+        </select-list>
+        <input-text *ngIf="q.type.description === 'input'" [questionDescription]="(i+1)+' - '+q.description"></input-text>
+        <radio *ngIf="q.type.description === 'radio'" [alternatives]="q.alternatives" [questionDescription]="(i+1)+' - '+q.description"></radio>
+        <radio-yn *ngIf="q.type.description === 'radio-yn'" [alternatives]="q.alternatives" [questionDescription]="(i+1)+' - '+q.description"></radio-yn>
+        <checkbox *ngIf="q.type.description === 'check'" [alternatives]="q.alternatives" [questionDescription]="(i+1)+' - '+q.description"></checkbox>
+      </ion-slide>
+    </ion-item-group>
+  </ion-slides>
+  <button ion-button (click)="teste()">Enviar</button>
+  <div class="swiper-button-next" (click)="slideNext()"></div>
+  <div class="swiper-button-prev" (click)="slidePrev()"></div>
+  
 </ion-content> 

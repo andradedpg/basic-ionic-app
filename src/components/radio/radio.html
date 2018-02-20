@@ -1,9 +1,9 @@
+<ion-item class="question-title">   
+  <ion-label>{{questionDescription}}</ion-label>
+</ion-item>
 <ion-list radio-group>
-  <ion-list-header>
-    {{questionDescription}}
-  </ion-list-header>
   <ion-item *ngFor="let alter of alternatives" >
     <ion-label>{{alter.description}}</ion-label>
-    <ion-radio checked="true" value="alter.id"></ion-radio>
+    <ion-radio value="alter.id"></ion-radio>
   </ion-item>
 </ion-list>

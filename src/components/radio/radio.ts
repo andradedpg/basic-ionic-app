@@ -1,6 +1,4 @@
 import { Alternative } from './../../domain/alternative';
-import { Question } from './../../domain/question';
-import { Form } from './../../domain/form';
 import { Component, Input } from '@angular/core';
 
 /**
@@ -8,8 +6,7 @@ import { Component, Input } from '@angular/core';
  *
  * See https://angular.io/docs/ts/latest/api/core/index/ComponentMetadata-class.html
  * for more info on Angular Components.
- */
-@Component({
+ */@Component({
   selector: 'radio',
   templateUrl: 'radio.html'
 })
