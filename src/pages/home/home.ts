@@ -2,6 +2,7 @@
 import { HttpService } from './../../providers/http-service';
 import { Component, ViewChild } from '@angular/core';
 import { NavController, ModalController } from 'ionic-angular';
+import { UserProvider } from './../../providers/user/user.provider';
 
 @Component({
   selector: 'page-home',
@@ -21,13 +22,20 @@ export class HomePage {
     this._url = value;
   }
   private _url: string;
+  
+  public user: any;
   public dados: any;
 
-  constructor(public navCtrl: NavController, public modalCtrl: ModalController, public http: HttpService) {
+  constructor(public navCtrl: NavController, 
+              public modalCtrl: ModalController, 
+              public http: HttpService,
+              private userProvider: UserProvider) {
 
   }
 
   ionViewDidLoad() {
+    this.user = this.userProvider.getUserAuth();
+    console.log(this.user);
     // let data = this.http.get('/app-beneficiario/10073/grafico-utilizacao', this.url).map(data => data.json()).toPromise()
     //   .then(data => { 
     //     this.dados = data.grafico;
@@ -37,5 +45,6 @@ export class HomePage {
     //   })
     //   .catch(error => console.log(error));
   }
+
 
 }

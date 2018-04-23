@@ -2,21 +2,24 @@ import { ConfigService } from './config-service';
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
 
+import { contentHeaders } from './../properties/headers';
+
 @Injectable()
 export class HttpService {
 
-  private _baseApi: string;
   private headers: Headers;
+  private _baseApi: string;
 
   constructor(private http: Http, private _configService: ConfigService) {
-    this.headers = new Headers();
-    this.baseApi = ConfigService._wsUrl;
-    this.headers.append('Client-Token', JSON.parse(localStorage.getItem('token')));
-    this.headers.append('Client-Type', '1');
+    this.headers = contentHeaders;
+    this.baseApi = ConfigService._url;
+    /*this.headers.append('Client-Token', JSON.parse(localStorage.getItem('token')));
+    this.headers.append('Client-Type', '1');*/
   }
 
   get(url: any, baseUrl?:string) {
     let _options = new RequestOptions({ headers: this.headers });
+
     if (!!baseUrl) {
       return this.http.get(`${baseUrl}${url}`, _options);
     } 

@@ -1,12 +1,6 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>Bem vindo ao FormApp</ion-title>
-  </ion-navbar>
-</ion-header>
-
 <ion-content class="login-content" padding>
   <ion-row class="logo-row">
-    <ion-img src="assets/img/imagine-apps.png"></ion-img>
+    <ion-img src="assets/img/logo-light.jpg"></ion-img>
   </ion-row>
   <div class="login-box">
     <form (ngSubmit)="fazerLogin(loginForm.value)" #loginForm="ngForm" id="loginForm">
@@ -14,20 +8,22 @@
         <ion-label>
           <ion-icon name="contact"></ion-icon>
         </ion-label>
-        <ion-input id="usuario" name="usuario" type="text" ngModel="2692140031" placeholder="Usuário"></ion-input>
+        <ion-input id="usuario" name="usuario" type="text" ngModel="" placeholder="Usuário"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label>
           <ion-icon name="key"></ion-icon>
         </ion-label>
-        <ion-input id="senha" name="senha" type="password" ngModel="00010026921400312" placeholder="Senha"></ion-input>
+        <ion-input id="senha" name="senha" type="password" ngModel="" placeholder="Senha"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label>Lembrar-me</ion-label>
         <ion-toggle name="snLembrarMe" ngModel="false"></ion-toggle>
       </ion-item>
-      <button ion-button block type="submit">Login</button>
+      <button ion-button icon-right type="submit" color="secondary">
+        Login
+        <ion-icon name="contact"></ion-icon>
+      </button>
     </form>
-    <button ion-button block (click)="goFormulario()">Form</button>
   </div>
 </ion-content>

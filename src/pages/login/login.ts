@@ -1,5 +1,5 @@
 import { FormPage } from './../form/form-page';
-import { LoginProvider } from './../../providers/login/login';
+import { LoginProvider } from './../../providers/login/login.provider';
 import { Component } from '@angular/core';
 import { NavController, NavParams, ToastController, LoadingController } from 'ionic-angular';
 import { HomePage } from '../home/home';
@@ -34,7 +34,6 @@ export class LoginPage {
       });
 
     }).catch((err) => {
-
       toast.setMessage('Login ou senha inválido : ' + err);
       toast.present();
       loading.dismiss();

@@ -25,7 +25,8 @@ import { LoginPage } from '../pages/login/login';
 import { ConfigService } from './../providers/config-service';
 import { HttpService } from './../providers/http-service';
 import { ConnectivityService } from './../providers/connectivity-service';
-import { LoginProvider } from '../providers/login/login';
+import { LoginProvider } from '../providers/login/login.provider';
+import { UserProvider } from '../providers/user/user.provider';
 
 // Component
 import { InputComponent } from './../components/input/input';
@@ -72,6 +73,7 @@ import 'rxjs/add/operator/toPromise';
     NativeStorage,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     LoginProvider,
+    UserProvider,
     ScreenOrientation,
     Clipboard,
     LoaderService,
