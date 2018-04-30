@@ -5,12 +5,18 @@
         </ion-toolbar>
     </ion-header>-->
     <ion-content>
-        <div class="menu-bar">
+        <div class="menu-bar" style="background-color:#009688;
+                                     background-image:url('assets/img/Light-Recicla-box.png');
+                                     background-repeat: no-repeat;">
         </div>
         <ion-list>
             <ion-item menuClose ion-item *ngFor="let pagina of pages" (click)="navegarPara(pagina.component)">
                 <ion-icon name="{{ pagina.icon }}" item-start></ion-icon>
                 {{ pagina.title }}
+            </ion-item>
+            <ion-item menuClose ion-item (click)="logout()">
+                <ion-icon name="log-out" item-start></ion-icon>
+                Logout
             </ion-item>
         </ion-list>
     </ion-content>

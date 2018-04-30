@@ -1,0 +1,102 @@
+<ion-header>
+  <ion-navbar color="lightrecicla">
+    <ion-buttons left>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title *ngIf="loaded">
+        Olá {{ usuario.nome }}
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+        <ion-icon name="contacts" item-start></ion-icon>
+        Novo Contrato 
+    </ion-card-header>
+  <form [formGroup]="form" (ngSubmit)="FormContrato()">
+    
+    <ion-item>
+      <ion-label>NUC</ion-label>
+      <ion-input type="number" formControlName="numero"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Nome</ion-label>
+      <ion-input type="text" formControlName="titular"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>CPF:</ion-label>
+      <ion-input type="text" formControlName="cpf_cnpj"></ion-input>
+    </ion-item>
+    
+    <ion-item-divider></ion-item-divider>
+    
+    <ion-item>
+        <ion-label>Nr do Medidor:</ion-label>
+        <ion-input type="text" formControlName="medidor"></ion-input>
+      </ion-item>
+
+    <ion-list radio-group formControlName="tensao">
+      <ion-item>
+          <ion-label>Tensão</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>110v</ion-label>
+        <ion-radio value="110" checked color="lightrecicla"></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>220v</ion-label>
+        <ion-radio value="220" color="lightrecicla"></ion-radio>
+      </ion-item>
+    </ion-list>
+    
+    <ion-item-divider></ion-item-divider>
+    
+    <ion-item>
+      <ion-label>CEP</ion-label>
+      <ion-input type="number" formControlName="cep"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-textarea formControlName="endereco"></ion-textarea>
+    </ion-item>
+
+    <ion-item-divider></ion-item-divider>
+
+    <ion-item>
+      <ion-label>Local do Cadastro</ion-label>
+      <ion-input type="text" formControlName="local_cadastro" disabled></ion-input>
+    </ion-item>
+
+    <ion-list radio-group formControlName="como_conheceu">
+      <ion-item>
+          <ion-label>Como Conheceu o Projeto?</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>Publicidade</ion-label>
+        <ion-radio value="pbl" checked color="lightrecicla"></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>Mobilização</ion-label>
+        <ion-radio value="mbl" checked color="lightrecicla"></ion-radio>
+      </ion-item>
+    </ion-list>
+
+    <button ion-button type="submit" color="lightrecicla" [disabled]="!form.valid">
+        <ion-icon name="person-add"></ion-icon>
+        Salvar
+    </button>
+    </form>
+  </ion-card>  
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+      AVSI - Brasil [LOGO] & LightRecicla [LOGO]
+  </ion-toolbar>
+</ion-footer>

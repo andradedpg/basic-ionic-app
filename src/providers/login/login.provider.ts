@@ -17,15 +17,17 @@ export class LoginProvider {
 
   private nativeStorage: NativeStorage;
 
-  constructor(public http: HttpService, _options: RequestOptions, private _nativeStorage: NativeStorage, private _configService: ConfigService) {
-    this.nativeStorage = _nativeStorage;
-    this._url = ConfigService._url;
-    this._client_id = ConfigService._client_id;
-    this._client_secret = ConfigService._client_secret;
+  constructor(public http: HttpService, 
+              private _nativeStorage: NativeStorage, 
+              private _configService: ConfigService) {
+
+    this.nativeStorage  = _nativeStorage;
+    this._url           = this._configService.url;
+    this._client_id     = this._configService.client_id;
+    this._client_secret = this._configService.client_secret;
   }
 
   fazerLogin(login) {
-
     let _headers = contentHeaders;
     let _options = new RequestOptions({ headers: _headers });
     let api = `${this._baseApi}`;
@@ -53,6 +55,35 @@ export class LoginProvider {
           _reject(retorno.message);
         });
 
+    });
+  }
+
+  logout() {
+    let api = '/logout';
+    let self = this;
+
+    let _headers = contentHeaders;
+    let _options = new RequestOptions({ headers: _headers });
+
+    let body = JSON.stringify({
+      client_id: this._client_id,
+      client_secret: this._client_secret
+    });
+
+    return new Promise((success, reject) => {
+      let _success = success;
+      let _reject = reject;
+      self.http.post(api, this._url, body, _options)
+        .map(res =>  res.json())
+        .toPromise().then(function (data) {
+            console.log(data);
+            this.localStorage.removeItem('currentUser');
+            this.localStorage.removeItem('token');
+            _success(data);
+        }).catch(function (err) {
+          let retorno = JSON.parse(err._body);
+          _reject(retorno.message);
+        });
     });
   }
 

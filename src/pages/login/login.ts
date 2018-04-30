@@ -27,7 +27,7 @@ export class LoginPage {
     this.loginProvider.fazerLogin(login).then((success) => {
       
       loading.dismiss();
-      toast.setMessage('Login com sucesso');
+      toast.setMessage('Logado! Carregando ambiente...');
       toast.present();
       toast.onDidDismiss(() => {
         self.navCtrl.setRoot(HomePage);

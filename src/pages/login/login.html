@@ -8,21 +8,21 @@
         <ion-label>
           <ion-icon name="contact"></ion-icon>
         </ion-label>
-        <ion-input id="usuario" name="usuario" type="text" ngModel="" placeholder="Usuário"></ion-input>
+        <ion-input id="usuario" name="usuario" type="text" ngModel="api.teste" placeholder="Usuário"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label>
           <ion-icon name="key"></ion-icon>
         </ion-label>
-        <ion-input id="senha" name="senha" type="password" ngModel="" placeholder="Senha"></ion-input>
+        <ion-input id="senha" name="senha" type="password" ngModel="12345" placeholder="Senha"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label>Lembrar-me</ion-label>
-        <ion-toggle name="snLembrarMe" ngModel="false"></ion-toggle>
+        <ion-toggle name="snLembrarMe" ngModel="false" color="lightrecicla"></ion-toggle>
       </ion-item>
-      <button ion-button icon-right type="submit" color="secondary">
+      <button ion-button icon-right type="submit" color="lightrecicla">
         Login
-        <ion-icon name="contact"></ion-icon>
+        <ion-icon ios="ios-log-in" md="md-log-in"></ion-icon>
       </button>
     </form>
   </div>

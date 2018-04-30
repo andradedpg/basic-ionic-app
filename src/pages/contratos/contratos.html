@@ -14,8 +14,16 @@
 <ion-content padding>
   <ion-card>
     <ion-card-header>
-      Bem-vindo de volta a operação
+        <ion-icon name="contacts" item-start></ion-icon>
+        Contratos 
     </ion-card-header>
+
+    <ion-list>
+        <button ion-item *ngFor="let acao of pages" (click)="navegarPara(acao.component)">
+            <ion-icon name="{{ acao.icon }}" item-start></ion-icon>
+            {{ acao.title }}
+        </button>
+    </ion-list>
   </ion-card>
 </ion-content>
 

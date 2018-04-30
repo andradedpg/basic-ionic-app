@@ -12,7 +12,7 @@ export class HttpService {
 
   constructor(private http: Http, private _configService: ConfigService) {
     this.headers = contentHeaders;
-    this.baseApi = ConfigService._url;
+    this.baseApi = this._configService.url;
     /*this.headers.append('Client-Token', JSON.parse(localStorage.getItem('token')));
     this.headers.append('Client-Type', '1');*/
   }
@@ -24,6 +24,11 @@ export class HttpService {
       return this.http.get(`${baseUrl}${url}`, _options);
     } 
     return this.http.get(`${this._baseApi}${url}`, _options);
+  }
+
+  put(url, data){
+    let _options = new RequestOptions({ headers: this.headers });
+    return this.http.put(`${this._baseApi}${url}`, data ,_options);
   }
 
   post(url, baseUrl:string = null, data, options:RequestOptions = null ) {
