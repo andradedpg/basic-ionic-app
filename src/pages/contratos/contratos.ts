@@ -1,5 +1,5 @@
 // import { Chart } from 'chart.js';
-import { IonicPage, NavController, ModalController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, ModalController, ToastController, NavParams } from 'ionic-angular';
 import { Component, ViewChild } from '@angular/core';
 
 import { HttpService } from './../../providers/http-service';
@@ -22,6 +22,7 @@ export class ContratosPage {
 
   constructor(public navCtrl: NavController, 
               public modalCtrl: ModalController, 
+              public toastCtrl: ToastController,
               public http: HttpService,
               private contratoProvider: ContratoProvider) {
 
@@ -34,7 +35,6 @@ export class ContratosPage {
   }
 
   navegarPara(page) {
-    console.log(page);
     this.navCtrl.push(page, {
     });
   }

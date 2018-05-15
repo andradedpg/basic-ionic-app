@@ -22,17 +22,21 @@ export class ContratoProvider {
   }
 
   save(contrato: Contrato) {
-    if (contrato.id) {
-        return this.http.put(this._url + '/' + contrato.id, JSON.stringify(contrato.id))
-            .map(res => res.json().data as Contrato)
-            .toPromise()
-            .catch(this.handleError);
-    } else {
-        return this.http.post(this._url, null, JSON.stringify(contrato))
-            .map(res => res.json().data as Contrato)
-            .toPromise()
-            .catch(this.handleError);
-    }
+    return new Promise((success, reject) => {
+      let _success = success;
+      let _reject  = reject;
+      let _erroMsg = this._manageMessage;
+
+      console.log(JSON.stringify(contrato));
+
+      this.http.post(this._url, null, JSON.stringify(contrato))
+          .map(res => res.json().data)
+          .toPromise().then(function (data){
+            _success(data);
+          }).catch(function (err) {
+            _reject(_erroMsg(err));
+          });
+      });
   }
 
   search(): Observable <Contrato> {
@@ -41,18 +45,16 @@ export class ContratoProvider {
                 .catch(err => Observable.throw(err.message));
   };
 
-  private handleError<T> (operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
-      // TODO: better job of transforming error for user consumption
-      this.log(`${operation} failed: ${error.message}`);
-      // Let the app keep running by returning an empty result.
-      return of(result as T);
-    };
+  private _manageMessage(retorno){
+    let msgs = JSON.parse(retorno._body);
+    let r = ' Atenção aos campos: ';
+    for (var key in msgs) {
+      if (msgs.hasOwnProperty(key)) {
+          r += key+', ';
+      }
+    }
+
+    return r;
   }
- 
-  private log(message: string) {
-    console.log(message);
-  }
+
 }
