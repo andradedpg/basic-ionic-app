@@ -52,7 +52,7 @@ export class ContratoAddPage {
 
     this.contratoProvider.save(this.contrato).then((success) => {
       loading.dismiss();
-      toast.setMessage('Logado! Carregando ambiente...');
+      toast.setMessage('Contrato salvo corretamente!');
       toast.present();
       toast.onDidDismiss(() => {
         this.navCtrl.setRoot(ContratosPage)
@@ -74,11 +74,13 @@ export class ContratoAddPage {
   private formatData():Contrato{
     let contrato: Contrato               = this.form.value;
         contrato.status                  = 'A';
-        contrato.$cliente                = new Cliente();
-        contrato.$cliente.nome           = this.form.value.titular;
-        contrato.$cliente.cpf            = this.form.value.cpf_cnpj;
-        contrato.$cliente.evento_id      = this.getEventoAberto().id;
-        contrato.$cliente.como_conheceu  = this.form.value.como_conheceu;
+    
+        contrato.cliente                = new Cliente();     
+        contrato.cliente.nome           = this.form.value.nomeTitular;
+        contrato.cliente.cpf            = this.form.value.cpf_cnpj;
+        contrato.cliente.evento_id      = this.getEventoAberto().id;
+        contrato.cliente.como_conheceu  = this.form.value.como_conheceu;
+    
     return contrato;
   }
 

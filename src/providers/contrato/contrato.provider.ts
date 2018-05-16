@@ -28,7 +28,8 @@ export class ContratoProvider {
       let _erroMsg = this._manageMessage;
 
       console.log(JSON.stringify(contrato));
-
+      console.log(contrato);
+      
       this.http.post(this._url, null, JSON.stringify(contrato))
           .map(res => res.json().data)
           .toPromise().then(function (data){

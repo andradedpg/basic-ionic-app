@@ -14,6 +14,7 @@ export class Contrato {
     private _endereco:string;
     private _endereco_nr:string;
 
+    private _cliente: Cliente;
     /**
      * Getter status
      * @return {string}
@@ -29,8 +30,6 @@ export class Contrato {
 	public set status(value: string) {
 		this._status = value;
 	}
-
-    private cliente: Cliente;
     
     public get id(): number {
 		  return this._id;
@@ -189,16 +188,16 @@ export class Contrato {
      * Getter $cliente
      * @return {Cliente}
      */
-	public get $cliente(): Cliente {
-		return this.cliente;
+	public get cliente(): Cliente {
+		return this._cliente;
 	}
 
     /**
      * Setter $cliente
      * @param {Cliente} value
      */
-	public set $cliente(value: Cliente) {
-		this.cliente = value;
+	public set cliente(value: Cliente) {
+		this._cliente = value;
 	}
     //...
 }

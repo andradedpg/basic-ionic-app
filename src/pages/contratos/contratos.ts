@@ -30,7 +30,8 @@ export class ContratosPage {
 
   ionViewDidLoad() {
     this.pages = [
-      {title: 'Novo', component: ContratoAddPage, icon: 'person-add'}
+      {title: 'Novo', component: ContratoAddPage, icon: 'person-add'},
+      {title: 'Buscar', component: ContratoAddPage, icon: 'search'}
     ]
   }
 
