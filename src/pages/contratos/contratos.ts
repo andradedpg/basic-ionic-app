@@ -10,8 +10,6 @@ import { ContratoSearchPage } from './contrato-search/contrato-search';
 
 import { Contrato } from './../../domain/contrato';
 
-
-
 @IonicPage()
 @Component({
   selector: 'contratos-home',

@@ -1,4 +1,4 @@
-import { NavController, ModalController, ToastController, LoadingController, AlertController  } from 'ionic-angular';
+import { IonicPage, NavController, ModalController, ToastController, LoadingController, AlertController  } from 'ionic-angular';
 import { Component } from '@angular/core';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 
@@ -6,6 +6,12 @@ import { ContratoProvider } from './../../../providers/contrato/contrato.provide
 import { Contrato } from './../../../domain/contrato';
 import { Cliente } from './../../../domain/cliente';
 import { ContratosPage } from './../contratos';
+import { ContratoValidate } from './../contratos.validate';
+
+@IonicPage({
+  name: 'contrato-form',
+  segment: 'contrato-form/:id'
+})
 
 @Component({
   selector: 'contrato-form',
@@ -23,7 +29,8 @@ export class ContratoFormPage {
               private alertCtrl: AlertController,
               public _loadingController: LoadingController,
               private contratoProvider: ContratoProvider,
-              private formBuilder: FormBuilder) {
+              private formBuilder: FormBuilder,
+              public contratoValidate: ContratoValidate) {
 
       this.form = this.formBuilder.group({
         nomeTitular: ['', Validators.required],
@@ -36,6 +43,7 @@ export class ContratoFormPage {
         local_cadastro: [this.getEventoAberto().local, Validators.required],
         como_conheceu: ['', Validators.required]
       });     
+
   }
 
   ionViewDidLoad() {
@@ -72,6 +80,10 @@ export class ContratoFormPage {
 
   getEventoAberto():any{
     return {id:2, local:'LOCAL_DO_EVENTO_ABERTO'};
+  }
+
+  formatField(tipo:string, field:string){
+    return this.contratoValidate.define(tipo, field);
   }
 
   /*  */

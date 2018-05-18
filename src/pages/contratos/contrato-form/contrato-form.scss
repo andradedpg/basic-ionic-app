@@ -1,4 +1,4 @@
-page-home {
+contrato-form {
     $toolbar-background: rgb(58, 138, 58);
     .scroll-content {
         background-color: map-get($colors, light);
@@ -8,6 +8,9 @@ page-home {
     }
     ion-header {
         background-color: $toolbar-background;
+    }
+    ion-input{
+        text-transform: uppercase;
     }
     
 }

@@ -21,17 +21,17 @@
     
     <ion-item>
       <ion-label>NUC</ion-label>
-      <ion-input type="number" formControlName="numero"></ion-input>
+      <ion-input type="number" pattern="[0-9]*" formControlName="numero"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label>Nome</ion-label>
-      <ion-input type="text" formControlName="nomeTitular"></ion-input>
+      <ion-input type="text" [(ngModel)]="nomeTitular" (ionBlur)="nomeTitular = formatField('nomeTitular', nomeTitular)" formControlName="nomeTitular"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label>CPF:</ion-label>
-      <ion-input type="text" formControlName="cpf_cnpj"></ion-input>
+      <ion-input type="text" [(ngModel)]="cpf_cnpj" (ionBlur)="cpf_cnpj = formatField('cpf_cnpj', cpf_cnpj)" formControlName="cpf_cnpj" maxlength=14></ion-input>
     </ion-item>
     
     <ion-item-divider></ion-item-divider>
