@@ -4,8 +4,12 @@ import { Component, ViewChild } from '@angular/core';
 
 import { HttpService } from './../../providers/http-service';
 import { ContratoProvider } from './../../providers/contrato/contrato.provider';
-import { ContratoAddPage } from './contrato-add/contrato-add';
+
+import { ContratoFormPage } from './contrato-form/contrato-form';
+import { ContratoSearchPage } from './contrato-search/contrato-search';
+
 import { Contrato } from './../../domain/contrato';
+
 
 
 @IonicPage()
@@ -30,8 +34,8 @@ export class ContratosPage {
 
   ionViewDidLoad() {
     this.pages = [
-      {title: 'Novo', component: ContratoAddPage, icon: 'person-add'},
-      {title: 'Buscar', component: ContratoAddPage, icon: 'search'}
+      {title: 'Novo', component: ContratoFormPage, icon: 'person-add'},
+      {title: 'Buscar', component: ContratoSearchPage, icon: 'search'}
     ]
   }
 

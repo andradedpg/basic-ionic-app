@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-navbar color="lightrecicla">
+    <ion-buttons left>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title *ngIf="loaded">
+        Olá {{ usuario.nome }}
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+        <ion-icon name="contacts" item-start></ion-icon>
+        Pesquisar Contratos
+    </ion-card-header>
+    <ion-searchbar [(ngModel)]="searchTerm" [formControl]="searchControl" (ionInput)="onSearchInput()"></ion-searchbar>
+    
+    <div *ngIf="searching" class="spinner-container">
+        <ion-spinner></ion-spinner>
+    </div>
+    
+    <ion-list>
+      <ion-item *ngFor="let item of items" (onClick)="gotoPage(item.id)">
+          <ion-card>
+              <ion-card-header>
+                  {{item.nomeTitular}}
+              </ion-card-header>
+              NUC: {{item.numero}}
+          </ion-card>
+      </ion-item>
+    </ion-list>
+  </ion-card>  
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+      AVSI - Brasil [LOGO] & LightRecicla [LOGO]
+  </ion-toolbar>
+</ion-footer>

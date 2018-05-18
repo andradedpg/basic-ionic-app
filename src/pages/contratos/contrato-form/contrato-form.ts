@@ -1,4 +1,4 @@
-import { NavController, ModalController, ToastController, LoadingController } from 'ionic-angular';
+import { NavController, ModalController, ToastController, LoadingController, AlertController  } from 'ionic-angular';
 import { Component } from '@angular/core';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 
@@ -8,10 +8,10 @@ import { Cliente } from './../../../domain/cliente';
 import { ContratosPage } from './../contratos';
 
 @Component({
-  selector: 'contrato-add',
-  templateUrl: 'contrato-add.html'
+  selector: 'contrato-form',
+  templateUrl: 'contrato-form.html'
 })
-export class ContratoAddPage {
+export class ContratoFormPage {
   public contrato: Contrato;
   
   public loaded: boolean = false;
@@ -20,6 +20,7 @@ export class ContratoAddPage {
   constructor(public navCtrl: NavController,
               public modalCtrl: ModalController,
               public toastCtrl: ToastController, 
+              private alertCtrl: AlertController,
               public _loadingController: LoadingController,
               private contratoProvider: ContratoProvider,
               private formBuilder: FormBuilder) {
@@ -52,11 +53,14 @@ export class ContratoAddPage {
 
     this.contratoProvider.save(this.contrato).then((success) => {
       loading.dismiss();
+      this.acaoPosCadastro(toast);
+      /*
       toast.setMessage('Contrato salvo corretamente!');
       toast.present();
       toast.onDidDismiss(() => {
         this.navCtrl.setRoot(ContratosPage)
       });
+      */
     
     }).catch((error) => {
       console.log(error);
@@ -73,16 +77,41 @@ export class ContratoAddPage {
   /*  */
   private formatData():Contrato{
     let contrato: Contrato               = this.form.value;
+        contrato.cpf_cnpj_titular        = this.form.value.cpf_cnpj,         
         contrato.status                  = 'A';
     
-        contrato.cliente                = new Cliente();     
-        contrato.cliente.nome           = this.form.value.nomeTitular;
-        contrato.cliente.cpf            = this.form.value.cpf_cnpj;
-        contrato.cliente.evento_id      = this.getEventoAberto().id;
-        contrato.cliente.como_conheceu  = this.form.value.como_conheceu;
+    let cliente: any =     {nome:this.form.value.nomeTitular,
+                            cpf:this.form.value.cpf_cnpj,
+                            evento_id:this.getEventoAberto().id,
+                            como_conheceu:this.form.value.como_conheceu};      
+
+    contrato.cliente = cliente;
     
     return contrato;
   }
 
+  private acaoPosCadastro(toast) {
+    let alert = this.alertCtrl.create({
+      title: 'Contrato Cadastrado!',
+      subTitle: 'Ir direto para Reciclagem de '+this.form.value.nomeTitular+' ? ',
+      buttons: [
+        {
+          text: 'Voltar para Contratos',
+          role: 'voltar',
+          handler: () => {
+            toast.onDidDismiss(() => {this.navCtrl.setRoot(ContratosPage)});
+          }
+        },
+        {
+          text: 'SIM',
+          handler: () => {
+            // Quando a pagina de Reciclagem existir, informar ela aqui
+            console.log('Ir Para reciclagem');
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
 
 }

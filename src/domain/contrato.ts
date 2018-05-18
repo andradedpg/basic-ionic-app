@@ -7,7 +7,7 @@ export class Contrato {
     
     private _numero:number;
     private _medidor:string;
-    private _cpf_cnpj:string;
+    private _cpf_cnpj_titular:string;
     private _tensao:string;
     private _cep:number;
     private _bairro_id:number;
@@ -15,6 +15,14 @@ export class Contrato {
     private _endereco_nr:string;
 
     private _cliente: Cliente;
+    
+    public get id(): number {
+        return this._id;
+    }
+
+    public set id(value: number) {
+        this._id = value;
+    }
     /**
      * Getter status
      * @return {string}
@@ -30,14 +38,6 @@ export class Contrato {
 	public set status(value: string) {
 		this._status = value;
 	}
-    
-    public get id(): number {
-		  return this._id;
-	  }
-
-	  public set id(value: number) {
-		  this._id = value;
-    }
 
     /**
      * Getter titular
@@ -92,16 +92,16 @@ export class Contrato {
      * Getter cpf_cnpj
      * @return {string}
      */
-	public get cpf_cnpj(): string {
-		return this._cpf_cnpj;
+	public get cpf_cnpj_titular(): string {
+		return this._cpf_cnpj_titular;
 	}
 
     /**
      * Setter cpf_cnpj
      * @param {string} value
      */
-	public set cpf_cnpj(value: string) {
-		this._cpf_cnpj = value;
+	public set cpf_cnpj_titular(value: string) {
+		this._cpf_cnpj_titular = value;
 	}
 
     /**
@@ -200,4 +200,4 @@ export class Contrato {
 		this._cliente = value;
 	}
     //...
-}
+}   

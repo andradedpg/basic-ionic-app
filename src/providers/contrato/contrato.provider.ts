@@ -26,9 +26,6 @@ export class ContratoProvider {
       let _success = success;
       let _reject  = reject;
       let _erroMsg = this._manageMessage;
-
-      console.log(JSON.stringify(contrato));
-      console.log(contrato);
       
       this.http.post(this._url, null, JSON.stringify(contrato))
           .map(res => res.json().data)
@@ -40,10 +37,9 @@ export class ContratoProvider {
       });
   }
 
-  search(): Observable <Contrato> {
-      return this.http.get(this._url+'/search')
-                .map(res => res.json().contratos.data as Contrato[])
-                .catch(err => Observable.throw(err.message));
+  search(term: string): Observable <any> {
+      let data: Observable <any> = this.http.get(this._url+'/search/'+term);
+      return data;
   };
 
   private _manageMessage(retorno){

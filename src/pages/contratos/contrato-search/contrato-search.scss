@@ -1,0 +1,21 @@
+contrato-search {
+    $toolbar-background: rgb(58, 138, 58);
+    .spinner-container {
+        width: 100%;
+        text-align: center;
+        padding: 10px;
+    }
+    .scroll-content {
+        background-color: map-get($colors, light);
+    }
+    ion-card-header {
+        font-weight: bold;
+    }
+    ion-header {
+        background-color: $toolbar-background;
+    }
+
+    
+    
+}
+

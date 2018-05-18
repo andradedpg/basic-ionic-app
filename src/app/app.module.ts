@@ -23,7 +23,8 @@ import { HomePage } from './../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 
 import { ContratosPage } from '../pages/contratos/contratos';
-import { ContratoAddPage } from '../pages/contratos/contrato-add/contrato-add';
+import { ContratoFormPage } from '../pages/contratos/contrato-form/contrato-form';
+import { ContratoSearchPage } from '../pages/contratos/contrato-search/contrato-search';
 // Services
 import { ConfigService } from './../providers/config-service';
 import { HttpService } from './../providers/http-service';
@@ -49,7 +50,8 @@ import 'rxjs/add/operator/toPromise';
     HomePage,
     FormPage,
     ContratosPage,
-    ContratoAddPage,
+    ContratoFormPage,
+    ContratoSearchPage,
     SelectListComponent,
     CheckboxComponent,
     RadioComponent,
@@ -68,7 +70,8 @@ import 'rxjs/add/operator/toPromise';
     HomePage,
     FormPage,
     ContratosPage,
-    ContratoAddPage
+    ContratoFormPage,
+    ContratoSearchPage
   ],
   providers: [
     StatusBar,

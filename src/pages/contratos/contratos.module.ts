@@ -3,20 +3,23 @@ import { TranslateModule } from '@ngx-translate/core';
 import { IonicPageModule } from 'ionic-angular';
 
 import { ContratosPage } from './contratos';
-import { ContratoAddPage } from './contrato-add/contrato-add';
+import { ContratoFormPage } from './contrato-form/contrato-form';
+import { ContratoSearchPage } from './contrato-search/contrato-search';
 
 @NgModule({
   declarations: [
     ContratosPage,
-    ContratoAddPage
+    ContratoFormPage,
+    ContratoSearchPage
   ],
   imports: [
-    IonicPageModule.forChild([ContratosPage, ContratoAddPage]),
+    IonicPageModule.forChild([ContratosPage, ContratoFormPage, ContratoSearchPage]),
     TranslateModule.forChild()
   ],
   exports: [
     ContratosPage,
-    ContratoAddPage
+    ContratoFormPage, 
+    ContratoSearchPage
   ]
 })
 export class ContratoModule { }
