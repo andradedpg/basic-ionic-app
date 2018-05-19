@@ -44,8 +44,9 @@ export class ContratoSearchPage {
     }
 
     goToPage(button:any, id){
+        console.log(id);
         this.navCtrl.push(button.pageDestino, {
-            'id': id
+            'id':id
         });
     }
  

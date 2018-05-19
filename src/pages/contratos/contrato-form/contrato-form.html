@@ -59,7 +59,7 @@
     
     <ion-item>
       <ion-label>CEP</ion-label>
-      <ion-input type="number" formControlName="cep"  maxlength="8"></ion-input>
+      <ion-input type="number" formControlName="cep"  maxlength="8" (keypress)="buscarEndereco()"></ion-input>
     </ion-item>
 
     <ion-item>
