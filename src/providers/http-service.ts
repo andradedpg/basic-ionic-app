@@ -26,7 +26,7 @@ export class HttpService {
     return this.http.get(`${this._baseApi}${url}`, _options);
   }
 
-  put(url, data){
+  put(url, data, id){
     let _options = new RequestOptions({ headers: this.headers });
     return this.http.put(`${this._baseApi}${url}`, data ,_options);
   }
