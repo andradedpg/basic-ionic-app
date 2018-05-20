@@ -3,7 +3,7 @@ import { Http } from '@angular/http';
 
 import { Observable } from 'rxjs/Rx'
 //import { of } from 'rxjs/observable/of';
-import { map } from 'rxjs/operators';
+//import { map } from 'rxjs/operators';
 //import 'rxjs/add/operator/toPromise';
 
 import { Endereco } from '../../domain/endereco';
@@ -16,7 +16,7 @@ export class EnderecoProvider {
   constructor(public http: Http) { }
 
   getByCEP(cep:number): Observable<Endereco>{
-      return this.http.get(this._url+'/'+cep)
+      return this.http.get(this._url+'/'+cep+'/json')
                       .map(res =>{ return res.json() as Endereco});
   }
 

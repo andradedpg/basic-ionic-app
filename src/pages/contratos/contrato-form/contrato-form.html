@@ -15,7 +15,7 @@
   <ion-card>
     <ion-card-header>
         <ion-icon name="contacts" item-start></ion-icon>
-        Novo Contrato 
+        {{ title }}
     </ion-card-header>
   <form [formGroup]="form" (ngSubmit)="FormContrato()">
     
@@ -31,14 +31,14 @@
 
     <ion-item>
       <ion-label>CPF:</ion-label>
-      <ion-input type="text" [(ngModel)]="cpf_cnpj" (ionBlur)="cpf_cnpj = formatField('cpf_cnpj', cpf_cnpj)" formControlName="cpf_cnpj" maxlength=14></ion-input>
+      <ion-input type="text" [(ngModel)]="cpf_cnpj_titular" (ionBlur)="cpf_cnpj_titular = formatField('cpf_cnpj_titular', cpf_cnpj_titular)" formControlName="cpf_cnpj_titular" maxlength=14></ion-input>
     </ion-item>
     
     <ion-item-divider></ion-item-divider>
     
     <ion-item>
         <ion-label>Nr do Medidor:</ion-label>
-        <ion-input type="text" formControlName="medidor"></ion-input>
+        <ion-input type="text" formControlName="numeroMedidor"></ion-input>
       </ion-item>
 
     <ion-list radio-group formControlName="tensao">
@@ -59,21 +59,37 @@
     
     <ion-item>
       <ion-label>CEP</ion-label>
-      <ion-input type="number" formControlName="cep"  maxlength="8" (keypress)="buscarEndereco()"></ion-input>
+      <ion-input type="number" formControlName="cep"  maxlength="8" (keyup)="getEndereco($event)"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-textarea formControlName="endereco"></ion-textarea>
+      <ion-textarea formControlName="infoEndereco">
+      </ion-textarea>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Logradouro</ion-label>
+      <ion-input type="text" formControlName="endereco"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Número</ion-label>
+      <ion-input type="text" formControlName="numeroEndereco"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Complemento</ion-label>
+      <ion-input type="text" formControlName="complementoEndereco"></ion-input>
     </ion-item>
 
     <ion-item-divider></ion-item-divider>
 
-    <ion-item>
+    <ion-item *ngIf="contratoId === undefined">
       <ion-label>Local do Cadastro</ion-label>
-      <ion-input type="text" formControlName="local_cadastro" disabled></ion-input>
+      <ion-input type="text" formControlName="local_cadastro"></ion-input>
     </ion-item>
 
-    <ion-list radio-group formControlName="como_conheceu">
+    <ion-list *ngIf="contratoId === undefined" radio-group formControlName="como_conheceu">
       <ion-item>
           <ion-label>Como Conheceu o Projeto?</ion-label>
       </ion-item>

@@ -13,7 +13,7 @@ export class ContratoValidate {
     public define(field:string, value:string){
         let r: any;
         switch(field){
-            case "cpf_cnpj":
+            case "cpf_cnpj_titular":
                 r = this.formatCpfCnpj(value);
                 break;
             case "nomeTitular":

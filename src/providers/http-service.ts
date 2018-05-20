@@ -28,7 +28,9 @@ export class HttpService {
 
   put(url, data, id){
     let _options = new RequestOptions({ headers: this.headers });
-    return this.http.put(`${this._baseApi}${url}`, data ,_options);
+    let _url = url+'/'+id;
+    
+    return this.http.put(`${this._baseApi}${_url}`, data ,_options);
   }
 
   post(url, baseUrl:string = null, data, options:RequestOptions = null ) {

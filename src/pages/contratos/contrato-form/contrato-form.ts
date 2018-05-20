@@ -28,6 +28,7 @@ export class ContratoFormPage {
   private form : FormGroup;
 
   contratoId: any;
+  title:string;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -46,7 +47,16 @@ export class ContratoFormPage {
       this.setForm();
 
       if(this.contratoId !== undefined && this.contratoId > 0){
+        this.title = 'Editar Contrato';
         this.getData(this.contratoId);
+
+        this.form.controls["local_cadastro"].setValidators(null);
+        this.form.controls["como_conheceu"].setValidators(null);
+
+        this.form.updateValueAndValidity();
+
+      }else{
+        this.title = 'Novo Contrato';
       }
   }
 
@@ -65,14 +75,7 @@ export class ContratoFormPage {
 
     this.contratoProvider.save(this.contrato).then((success) => {
       loading.dismiss();
-      this.acaoPosCadastro(toast);
-      /*
-      toast.setMessage('Contrato salvo corretamente!');
-      toast.present();
-      toast.onDidDismiss(() => {
-        this.navCtrl.setRoot(ContratosPage)
-      });
-      */
+      this.acaoPosCadastro();
     
     }).catch((error) => {
       console.log(error);
@@ -86,35 +89,48 @@ export class ContratoFormPage {
     return {id:2, local:'LOCAL_DO_EVENTO_ABERTO'};
   }
 
+  getEndereco(event){
+    let cep = this.form.controls['cep'].value;
+    if(cep.length === 8){
+      let loading = this._loadingController.create({ content: 'Procurando endereço...' });
+      loading.present();
+
+      this.enderecoProvider.getByCEP(cep)
+                           .subscribe(endereco => {
+                             let infoEndereco = endereco.bairro+'\n'+endereco.localidade+'/'+endereco.uf;
+                             
+                             this.form.controls['infoEndereco'].setValue(infoEndereco);
+                             this.form.controls['endereco'].setValue(endereco.logradouro);
+
+                             loading.dismiss(); 
+                           })
+    }
+  }
+
   formatField(tipo:string, field:string){
     return this.contratoValidate.define(tipo, field);
   }
 
-  buscarEndereco(event){
-    console.log(this.form);
-  }
-
-  /*  */
+  /* Privates  */
   private getData(id:number){
-    let loading = this._loadingController.create({ content: 'Dados do Contrato...' });
-    let toast   = this.toastCtrl.create({ duration: 1500 });
-    
+    let loading = this._loadingController.create({ content: 'Carregando Contrato...' });
+    loading.present();
+
     this.contratoProvider.getById(this.contratoId)
                           .subscribe(res => {
                             let contrato = res;
-                            
+                            console.log(contrato);
                             this.form.controls['nomeTitular'].setValue(contrato.nomeTitular);
                             this.form.controls['numero'].setValue(contrato.numero);
-                            this.form.controls['cpf_cnpj'].setValue(contrato.cpf_cnpj_titular);
-                            this.form.controls['medidor'].setValue(contrato.numeroMedidor);
+                            this.form.controls['cpf_cnpj_titular'].setValue(contrato.cpf_cnpj_titular);
+                            this.form.controls['numeroMedidor'].setValue(contrato.numeroMedidor);
                             this.form.controls['tensao'].setValue(contrato.tensao);
                             this.form.controls['cep'].setValue(contrato.cep);
-                            this.form.controls['endereco'].setValue('ANALISAR');
-                            
-                            if(contrato.cliente !== null) this.form.controls['como_conheceu'].setValue(contrato.cliente.como_conheceu);
+                            this.form.controls['endereco'].setValue(contrato.endereco);
+                            this.form.controls['numeroEndereco'].setValue(contrato.numeroEndereco);
+                            this.form.controls['complementoEndereco'].setValue(contrato.complementoEndereco);
 
                             loading.dismiss();
-                            toast.onDidDismiss(() => {});
                           });
   }
 
@@ -122,42 +138,48 @@ export class ContratoFormPage {
     this.form = this.formBuilder.group({
       nomeTitular: ['', Validators.required],
       numero: ['', Validators.required],
-      cpf_cnpj: [''],
-      medidor: [''],
+      cpf_cnpj_titular: [''],
+      numeroMedidor: [''],
       tensao: [''],
       cep: [''],
+      infoEndereco:  new FormControl({value: '', disabled: true}),
       endereco: [''],
-      local_cadastro: [this.getEventoAberto().local, Validators.required],
+      numeroEndereco: [''],
+      complementoEndereco: [''],
+      local_cadastro: new FormControl({value: this.getEventoAberto().local, disabled: true}, Validators.required),
       como_conheceu: ['', Validators.required]
     });
   }
   
   private formatData():Contrato{
     let contrato: Contrato               = this.form.value;
-        contrato.cpf_cnpj_titular        = this.form.value.cpf_cnpj.replace(/[-,.]/ig, ''),         
+        contrato.cpf_cnpj_titular        = this.form.value.cpf_cnpj_titular.replace('.', '').replace('-', ''),
         contrato.status                  = 'A';
-    
+        
+    if(this.contratoId !== undefined && this.contratoId > 0) {
+      contrato.id = this.contratoId;
+    }else{
     let cliente: any =     {nome:this.form.value.nomeTitular,
                             cpf:this.form.value.cpf_cnpj,
                             evento_id:this.getEventoAberto().id,
                             como_conheceu:this.form.value.como_conheceu};      
-
-    contrato.cliente = cliente;
-    if(this.contratoId !== undefined && this.contratoId > 0) contrato.id = this.contratoId;
-                            
+      contrato.cliente = cliente;
+    }
+                      
     return contrato;
   }
 
-  private acaoPosCadastro(toast) {
+  private acaoPosCadastro() {
+    let msg = (this.contratoId === undefined) ? 'Contrato Cadastrado!' : 'Contrato Editado!';
     let alert = this.alertCtrl.create({
-      title: 'Contrato Cadastrado!',
+      title: msg,
       subTitle: 'Ir direto para Reciclagem de '+this.form.value.nomeTitular+' ? ',
       buttons: [
         {
           text: 'Voltar para Contratos',
           role: 'voltar',
           handler: () => {
-            toast.onDidDismiss(() => {this.navCtrl.setRoot(ContratosPage)});
+              this.navCtrl.push(ContratosPage, {});
           }
         },
         {
