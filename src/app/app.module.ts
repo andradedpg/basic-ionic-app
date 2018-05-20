@@ -18,9 +18,10 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 
 // Pages
 import { MyApp } from './app.component';
-import { HomePage } from './../pages/home/home';
+//import { HomePage } from './../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 
+import { HomePageModule } from '../pages/home/home.module';
 import { ContratoModule } from '../pages/contratos/contratos.module';
 // Services
 import { ConfigService } from './../providers/config-service';
@@ -43,7 +44,7 @@ import 'rxjs/add/operator/toPromise';
   declarations: [
     MyApp,
     LoginPage,
-    HomePage,
+  //  HomePage,
     SelectListComponent,
     CheckboxComponent,
     RadioComponent,
@@ -54,13 +55,14 @@ import 'rxjs/add/operator/toPromise';
     BrowserModule,
     HttpModule,
     IonicModule.forRoot(MyApp),
-    ContratoModule
+    ContratoModule,
+    HomePageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    LoginPage,
-    HomePage,
+    LoginPage
+    //HomePage,
   ],
   providers: [
     StatusBar,

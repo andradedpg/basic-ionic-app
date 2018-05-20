@@ -3,6 +3,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { IonicPageModule } from 'ionic-angular';
 
 import { HomePage } from './home';
+import { EventoProvider } from '../../providers/evento/evento.provider';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,9 @@ import { HomePage } from './home';
   ],
   exports: [
     HomePage
+  ],
+  providers: [
+    EventoProvider
   ]
 })
 export class HomePageModule { }

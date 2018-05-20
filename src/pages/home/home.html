@@ -5,18 +5,48 @@
         <ion-icon name="menu"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-title *ngIf="loaded">
-        Olá {{ usuario.nome }}
+    <ion-title>
+        LIGHTRECICLA
     </ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
+  <div id="conteudo" *ngIf="loaded">
+    <ion-card>
+      <ion-card-header>
+        {{ usuario.nome }}, bem-vindo de volta!
+      </ion-card-header>
+    </ion-card>
+
+    <ion-card *ngIf="!evento_aberto">
+      <ion-card-header color="danger">
+        Nenhum evento aberto!
+      </ion-card-header>
+
+      <ion-card-content>
+        Selecione um evento abaixo e confirme a abertura
+        <ion-list radio-group>
+            <ion-item *ngFor="let evento of eventos">
+                <ion-label>{{ evento.acao.nome }} - {{ evento.local.nome }}</ion-label>
+                <ion-radio value={{evento.id}} color="lightrecicla" (click)="abrirEvento(evento.id)"></ion-radio>
+              </ion-item>
+          </ion-list>
+      </ion-card-content>
+    </ion-card>
+  <!--
   <ion-card>
     <ion-card-header>
-      Bem-vindo de volta a operação
+      Eventos disponíveis
     </ion-card-header>
+    <ion-list>
+      <ion-item *ngFor="let evento of eventos">
+        {{evento.id}}
+      </ion-item>
+    </ion-list>
   </ion-card>
+-->
+  </div>
 </ion-content>
 
 <ion-footer>

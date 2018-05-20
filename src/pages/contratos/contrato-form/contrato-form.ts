@@ -64,7 +64,7 @@ export class ContratoFormPage {
 
   }
 
-  FormContrato(){
+  submitForm(){
     this.contrato = this.formatData();
 
     let loading = this._loadingController.create({ content: 'Salvando Contrato...' });
@@ -75,7 +75,7 @@ export class ContratoFormPage {
 
     this.contratoProvider.save(this.contrato).then((success) => {
       loading.dismiss();
-      this.acaoPosCadastro();
+      this.acaoPosSalvar();
     
     }).catch((error) => {
       console.log(error);
@@ -169,7 +169,7 @@ export class ContratoFormPage {
     return contrato;
   }
 
-  private acaoPosCadastro() {
+  private acaoPosSalvar() {
     let msg = (this.contratoId === undefined) ? 'Contrato Cadastrado!' : 'Contrato Editado!';
     let alert = this.alertCtrl.create({
       title: msg,
