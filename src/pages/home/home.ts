@@ -48,9 +48,11 @@ export class HomePage {
   }
 
   abrirEvento(id){
+    let evento = this.eventos.find(evento => evento.id == id);
+    
     let alert = this._alertCtrl.create({
       title: 'Confirmar Abertura',
-      subTitle: ' Evento TAL será aberto agora',
+      subTitle: evento.acao.nome+' ('+evento.local.nome+') será aberto agora.',
       buttons: [
         {
           text: 'Desistir',
@@ -59,8 +61,14 @@ export class HomePage {
         {
           text: 'CONFIRMAR',
           handler: () => {
-            // Abrir evento e por em localStorage()
-            console.log('Ir Para reciclagem');
+            let load   = this._loading.create({content : ''});
+            load.present();
+            evento.status = 'A';
+            this.eventoProvider.update(evento).then((success) => {
+              console.log(success);
+              load.dismiss();
+              //localStorage.setItem('evento_aberto', )
+            })
           }
         }
       ]
