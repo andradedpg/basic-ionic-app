@@ -7,6 +7,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { LoginPage } from '../pages/login/login';
 import { ContratosPage } from '../pages/contratos/contratos';
+import { ParticipacaoPage } from '../pages/participacao/participacao';
 
 import { LoginProvider } from '../providers/login/login.provider';
 
@@ -42,7 +43,7 @@ export class MyApp {
     this.pages = [
       { title: 'Início', component: HomePage, icon: 'home'},
       { title: 'Contratos', component: ContratosPage, icon: 'contacts'},
-      { title: 'Reciclagem', component: HomePage, icon: 'ios-git-compare' }
+      { title: 'Reciclagem', component: ParticipacaoPage, icon: 'ios-git-compare' }
     ];
   }
 

@@ -8,9 +8,10 @@ import { EnderecoProvider } from '../../../providers/endereco/endereco.provider'
 
 import { Contrato } from './../../../domain/contrato';
 import { Cliente } from './../../../domain/cliente';
+import { Evento } from '../../../domain/evento';
+
 import { ContratosPage } from './../contratos';
 import { ContratoValidate } from './../contratos.validate';
-
 
 @IonicPage({
   name: 'contrato-form',
@@ -23,7 +24,8 @@ import { ContratoValidate } from './../contratos.validate';
 })
 export class ContratoFormPage {
   public contrato: Contrato;
-  
+  public evento_aberto: Evento;
+
   public loaded: boolean = false;
   private form : FormGroup;
 
@@ -42,22 +44,28 @@ export class ContratoFormPage {
               private enderecoProvider: EnderecoProvider,
               private formBuilder: FormBuilder,
               public contratoValidate: ContratoValidate) {
+      
+      if(this.getEventoAberto()){
+        this.contratoId = this.navParams.get('id');          
+        this.setForm();
 
-      this.contratoId = this.navParams.get('id');          
-      this.setForm();
+        if(this.contratoId !== undefined && this.contratoId > 0){
+          this.title = 'Editar Contrato';
+          this.getData(this.contratoId);
 
-      if(this.contratoId !== undefined && this.contratoId > 0){
-        this.title = 'Editar Contrato';
-        this.getData(this.contratoId);
+          this.form.controls["local_cadastro"].setValidators(null);
+          this.form.controls["como_conheceu"].setValidators(null);
 
-        this.form.controls["local_cadastro"].setValidators(null);
-        this.form.controls["como_conheceu"].setValidators(null);
+          this.form.updateValueAndValidity();
+        }else{
+          this.title = 'Novo Contrato';
+        }
 
-        this.form.updateValueAndValidity();
-
+        this.loaded = true;
       }else{
-        this.title = 'Novo Contrato';
-      }
+        this.loaded = false;
+      }          
+      
   }
 
   ionViewDidLoad() {
@@ -68,25 +76,18 @@ export class ContratoFormPage {
     this.contrato = this.formatData();
 
     let loading = this._loadingController.create({ content: 'Salvando Contrato...' });
-    let self = this;
+    //let self = this;
     let toast = this.toastCtrl.create({ duration: 1500 });
-
     loading.present();
 
     this.contratoProvider.save(this.contrato).then((success) => {
       loading.dismiss();
-      this.acaoPosSalvar();
-    
+      this.acaoPosSalvar();    
     }).catch((error) => {
-      console.log(error);
       toast.setMessage('Erro no formulário : ' + error);
       toast.present();
       loading.dismiss();
     });
-  }
-
-  getEventoAberto():any{
-    return {id:2, local:'LOCAL_DO_EVENTO_ABERTO'};
   }
 
   getEndereco(event){
@@ -119,7 +120,7 @@ export class ContratoFormPage {
     this.contratoProvider.getById(this.contratoId)
                           .subscribe(res => {
                             let contrato = res;
-                            console.log(contrato);
+                            
                             this.form.controls['nomeTitular'].setValue(contrato.nomeTitular);
                             this.form.controls['numero'].setValue(contrato.numero);
                             this.form.controls['cpf_cnpj_titular'].setValue(contrato.cpf_cnpj_titular);
@@ -135,6 +136,7 @@ export class ContratoFormPage {
   }
 
   private setForm(){
+    
     this.form = this.formBuilder.group({
       nomeTitular: ['', Validators.required],
       numero: ['', Validators.required],
@@ -146,7 +148,7 @@ export class ContratoFormPage {
       endereco: [''],
       numeroEndereco: [''],
       complementoEndereco: [''],
-      local_cadastro: new FormControl({value: this.getEventoAberto().local, disabled: true}, Validators.required),
+      local_cadastro: new FormControl({value: this.evento_aberto.local.nome, disabled: true}, Validators.required),
       como_conheceu: ['', Validators.required]
     });
   }
@@ -161,12 +163,28 @@ export class ContratoFormPage {
     }else{
     let cliente: any =     {nome:this.form.value.nomeTitular,
                             cpf:this.form.value.cpf_cnpj,
-                            evento_id:this.getEventoAberto().id,
+                            evento_id:this.evento_aberto.id,
                             como_conheceu:this.form.value.como_conheceu};      
       contrato.cliente = cliente;
     }
                       
     return contrato;
+  }
+
+  private getEventoAberto():any{
+    if(localStorage.getItem('evento_aberto')){
+      this.evento_aberto = JSON.parse(localStorage.getItem('evento_aberto'));
+      return true;
+    }else{
+      let toast = this.toastCtrl.create({ duration: 1500 });
+      let self = this;
+      toast.setMessage('Selecione um evento antes de continuar!');
+      toast.present();
+      toast.onDidDismiss(() => {
+        self.navCtrl.setRoot('HomePage');
+      });
+      return false;
+    }
   }
 
   private acaoPosSalvar() {

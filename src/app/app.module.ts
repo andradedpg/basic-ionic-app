@@ -39,6 +39,7 @@ import { SelectListComponent } from './../components/select-list/select-list';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
+import { ParticipacaoPageModule } from '../pages/participacao/participacao.module';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import 'rxjs/add/operator/toPromise';
     HttpModule,
     IonicModule.forRoot(MyApp),
     ContratoModule,
-    HomePageModule
+    HomePageModule,
+    ParticipacaoPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

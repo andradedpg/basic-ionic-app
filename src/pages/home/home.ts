@@ -1,5 +1,5 @@
 // import { Chart } from 'chart.js';
-import { IonicPage, NavController,  NavParams, ModalController, LoadingController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController,  NavParams, ModalController, LoadingController, AlertController, ToastController } from 'ionic-angular';
 import { Component, ViewChild } from '@angular/core';
 import { HttpService } from './../../providers/http-service';
 
@@ -19,20 +19,25 @@ export class HomePage {
 
   public usuario: User;
   public loaded: boolean = false;
+
   public evento_aberto:any;
   public eventos: Array<Evento> = [];
+  
+  public eventos_abertos: any;
+  public eventos_fechados: any;
 
   constructor(public navCtrl: NavController, 
               public modalCtrl: ModalController, 
+              public toastCtrl: ToastController, 
               private _loading: LoadingController,
               private _alertCtrl: AlertController,
               public http: HttpService,
               private userProvider: UserProvider,
               private eventoProvider: EventoProvider
-              ) {  }
+              ) { this.checkEventoAberto(); }
 
   ionViewDidLoad() {
-    let loading = this._loading.create({content: 'Resgantando seus dados...'});
+    let loading = this._loading.create({content: 'Resgatando seus dados...'});
     loading.present();
 
     this.userProvider.getUserAuth().subscribe((user) => {
@@ -47,9 +52,38 @@ export class HomePage {
     this.checkEventoAberto();
   }
 
-  abrirEvento(id){
+  fecharEvento(){
+    let alert = this._alertCtrl.create({
+      title: 'Confirmar Fechamento',
+      subTitle: this.evento_aberto.acao.nome+' ('+this.evento_aberto.local.nome+') será fechado agora.',
+      buttons: [
+        {
+          text: 'Desistir',
+          role: 'voltar'
+        },
+        {
+          text: 'CONFIRMAR',
+          handler: () => {            
+            let load = this._loading.create({content : 'Fechando evento ...'});
+            load.present();
+
+            this.evento_aberto.status = 'F';  
+            this.eventoProvider.update(this.evento_aberto).then((success) => {
+              localStorage.removeItem('evento_aberto');
+              load.dismiss();
+              this.reload('Evento fechado! Recarregando ambiente...');
+            });
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
+  setEvento(id){
     let evento = this.eventos.find(evento => evento.id == id);
-    
+    let msg = (evento.status === 'A') ? 'Selecionando evento...' : 'Abrindo e selecinando evento...';
+
     let alert = this._alertCtrl.create({
       title: 'Confirmar Abertura',
       subTitle: evento.acao.nome+' ('+evento.local.nome+') será aberto agora.',
@@ -60,15 +94,23 @@ export class HomePage {
         },
         {
           text: 'CONFIRMAR',
-          handler: () => {
-            let load   = this._loading.create({content : ''});
+          handler: () => {            
+            let load   = this._loading.create({content : msg});
             load.present();
-            evento.status = 'A';
-            this.eventoProvider.update(evento).then((success) => {
-              console.log(success);
-              load.dismiss();
-              //localStorage.setItem('evento_aberto', )
-            })
+
+            if(evento.status === 'F'){
+              evento.status = 'C';  
+              this.eventoProvider.update(evento).then((success) => {
+                /* Caso já exista um evento aberto */
+                localStorage.removeItem('evento_aberto');
+                localStorage.setItem('evento_aberto', JSON.stringify(evento));
+                load.dismiss();
+                this.reload('Evento selecionado! Recarregando ambiente');
+              })
+            }else{
+              localStorage.setItem('evento_aberto', JSON.stringify(evento));
+              this.reload('Evento selecionado! Recarregando ambiente');
+            }
           }
         }
       ]
@@ -80,7 +122,7 @@ export class HomePage {
 
   private checkEventoAberto(){
     if(localStorage.getItem('evento_aberto')){
-      this.evento_aberto = true;
+      this.evento_aberto = JSON.parse(localStorage.getItem('evento_aberto'));
     }else{
       this.eventoProvider.getDisponiveis().subscribe((eventos) => {
         this.formatEventos(eventos);
@@ -100,7 +142,24 @@ export class HomePage {
       this.eventos.push(evento);
     }
 
-    console.log(this.eventos);
+    this.eventos_abertos  = this.divideEventos('C');
+    this.eventos_fechados = this.divideEventos('F');
+  }
+
+  private divideEventos(status:string){
+    let eventos = this.eventos.filter(evento => evento.status === status);
+    return (eventos.length > 0) ? eventos : false;
+  }
+
+  private reload(mensagem:string){
+    let toast = this.toastCtrl.create({ duration: 1500 });
+    let self = this;
+
+    toast.setMessage(mensagem);
+    toast.present();
+    toast.onDidDismiss(() => {
+      self.navCtrl.setRoot(HomePage);
+    });
   }
 
 }

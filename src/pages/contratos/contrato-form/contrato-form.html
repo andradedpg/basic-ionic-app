@@ -5,13 +5,10 @@
         <ion-icon name="menu"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-title *ngIf="loaded">
-        Olá {{ usuario.nome }}
-    </ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="loaded">
   <ion-card>
     <ion-card-header>
         <ion-icon name="contacts" item-start></ion-icon>

@@ -1,8 +1,8 @@
 {
-  "name": "formapp",
-  "version": "0.0.1",
-  "author": "Ionic Framework",
-  "homepage": "http://ionicframework.com/",
+  "name": "lightrecicla_operador",
+  "version": "1.0.0",
+  "author": "Daniel Andrade",
+  "homepage": "http://www.imagineapps.com.br",
   "private": true,
   "scripts": {
     "clean": "ionic-app-scripts clean",

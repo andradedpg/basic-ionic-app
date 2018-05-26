@@ -15,37 +15,60 @@
   <div id="conteudo" *ngIf="loaded">
     <ion-card>
       <ion-card-header>
-        {{ usuario.nome }}, bem-vindo de volta!
+        {{ usuario.nome }}, <br />bem-vindo de volta!
       </ion-card-header>
     </ion-card>
 
     <ion-card *ngIf="!evento_aberto">
       <ion-card-header color="danger">
-        Nenhum evento aberto!
+        Nenhum evento selecionado!
       </ion-card-header>
 
-      <ion-card-content>
-        Selecione um evento abaixo e confirme a abertura
+      <ion-card-content *ngIf="eventos_abertos">
+        <ion-item color="lighrecicla">Escolha um evento abaixo</ion-item> 
         <ion-list radio-group>
-            <ion-item *ngFor="let evento of eventos">
-                <ion-label>{{ evento.acao.nome }} - {{ evento.local.nome }}</ion-label>
-                <ion-radio value={{evento.id}} color="lightrecicla" (click)="abrirEvento(evento.id)"></ion-radio>
-              </ion-item>
-          </ion-list>
+          <ion-item *ngFor="let evento of eventos_abertos">
+            <ion-label>{{ evento.acao.nome }} - {{ evento.local.nome }}</ion-label>
+            <ion-radio value={{evento.id}} color="lightrecicla" (click)="setEvento(evento.id)"></ion-radio>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+      
+      <ion-item-divider></ion-item-divider>
+
+      <ion-card-content *ngIf="eventos_fechados">
+        <ion-item color="lighrecicla">Abra um evento abaixo</ion-item> 
+        <ion-list radio-group>
+          <ion-item *ngFor="let evento of eventos_fechados">
+            <ion-label>{{ evento.acao.nome }} - {{ evento.local.nome }}</ion-label>
+            <ion-radio value={{evento.id}} color="lightrecicla" (click)="setEvento(evento.id)"></ion-radio>
+          </ion-item>
+        </ion-list>
       </ion-card-content>
     </ion-card>
-  <!--
-  <ion-card>
-    <ion-card-header>
-      Eventos disponíveis
-    </ion-card-header>
-    <ion-list>
-      <ion-item *ngFor="let evento of eventos">
-        {{evento.id}}
-      </ion-item>
-    </ion-list>
-  </ion-card>
--->
+  
+    <ion-card *ngIf="evento_aberto"> 
+      <ion-card-header color="lightrecicla">
+        Evento Selecionado
+      </ion-card-header>
+      <ion-item> {{ evento_aberto.acao.nome }} - {{ evento_aberto.local.nome }} </ion-item>
+      <ion-row>
+        <ion-col col-6> 
+          <button ion-button icon-start color="danger" (click)="fecharEvento()">
+            <ion-icon name="close-circle"></ion-icon>
+            FECHAR
+          </button>
+        </ion-col>  
+
+        <ion-col col-6> 
+          <button ion-button icon-start color="lightrecicla">
+            <ion-icon name="ios-git-compare"></ion-icon>
+            RECICLAR
+          </button>
+        </ion-col>  
+      </ion-row>
+    </ion-card>
+
   </div>
 </ion-content>
 
