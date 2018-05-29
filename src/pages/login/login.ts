@@ -1,4 +1,3 @@
-import { FormPage } from './../form/form-page';
 import { LoginProvider } from './../../providers/login/login.provider';
 import { Component } from '@angular/core';
 import { NavController, NavParams, ToastController, LoadingController } from 'ionic-angular';
@@ -39,10 +38,6 @@ export class LoginPage {
       loading.dismiss();
 
     });
-  }
-
-  goFormulario() {
-    this.navCtrl.push(FormPage);
   }
 
 }

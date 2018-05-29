@@ -8,6 +8,7 @@ import { EventoProvider } from '../../providers/evento/evento.provider';
 import { Evento } from '../../domain/evento';
 
 import { User } from './../../domain/user';
+import { ParticipacaoPage } from '../participacao/participacao';
 
 @IonicPage()
 @Component({
@@ -48,8 +49,11 @@ export class HomePage {
     (error) => {
       console.log('userProvider error : ' + error);
     });
+  }
 
-    this.checkEventoAberto();
+  goParticipacao() {
+    this.navCtrl.push(ParticipacaoPage, {
+    });
   }
 
   fecharEvento(){
@@ -141,7 +145,7 @@ export class HomePage {
 
       this.eventos.push(evento);
     }
-
+    
     this.eventos_abertos  = this.divideEventos('C');
     this.eventos_fechados = this.divideEventos('F');
   }

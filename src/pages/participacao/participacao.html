@@ -12,9 +12,35 @@
   <ion-card>
     <ion-card-header>
         <ion-icon name="contacts" item-start></ion-icon>
-        Participantes 
+        Procurar Participantes 
+        <ion-item>Evento Aberto</ion-item>
     </ion-card-header>
+    <ion-searchbar [(ngModel)]="searchTerm" [formControl]="searchControl" (ionInput)="onSearchInput()"  placeholder="Nome ou NUC do Cliente"></ion-searchbar>
+    <div *ngIf="searching" class="spinner-container">
+      <ion-spinner></ion-spinner>
+    </div>
   </ion-card>
+
+  <ion-list *ngIf="participacoes !== false">
+    <ion-item *ngFor="let participacoes of participante">
+        <ion-card>
+          <ion-card-header>
+            <ion-icon name="contact" item-start></ion-icon>
+            {{participante.cliente.nome}}
+          </ion-card-header>
+          <ion-item>NUC: {{participante.contrato.numero}}</ion-item>
+          
+          <ion-row>
+            <ion-col col-6 *ngFor="let button of buttons"> 
+            <button ion-button icon-start color={{button.color}} (click)="goToPage(button, contrato.id)">
+              <ion-icon name={{button.icon}}></ion-icon>
+              {{ button.nome }}
+            </button>
+            </ion-col>  
+          </ion-row>
+        </ion-card>
+    </ion-item>
+  </ion-list>
 
 </ion-content>
 

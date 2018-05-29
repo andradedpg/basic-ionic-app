@@ -4,7 +4,7 @@ import { Camera } from '@ionic-native/camera';
 import { LoaderService } from './../providers/loader';
 import { Clipboard } from '@ionic-native/clipboard';
 import { BrowserModule } from '@angular/platform-browser';
-import { ErrorHandler, NgModule, Injector, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { ErrorHandler, NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -18,11 +18,13 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 
 // Pages
 import { MyApp } from './app.component';
-//import { HomePage } from './../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 
+// Modules
 import { HomePageModule } from '../pages/home/home.module';
 import { ContratoModule } from '../pages/contratos/contratos.module';
+import { ParticipacaoPageModule } from '../pages/participacao/participacao.module';
+
 // Services
 import { ConfigService } from './../providers/config-service';
 import { HttpService } from './../providers/http-service';
@@ -30,27 +32,13 @@ import { ConnectivityService } from './../providers/connectivity-service';
 import { LoginProvider } from '../providers/login/login.provider';
 import { UserProvider } from '../providers/user/user.provider';
 
-// Component
-import { InputComponent } from './../components/input/input';
-import { RadioYnComponent } from './../components/radio-yn/radio-yn';
-import { RadioComponent } from './../components/radio/radio';
-import { CheckboxComponent } from './../components/checkbox/checkbox';
-import { SelectListComponent } from './../components/select-list/select-list';
-
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
-import { ParticipacaoPageModule } from '../pages/participacao/participacao.module';
 
 @NgModule({
   declarations: [
     MyApp,
-    LoginPage,
-  //  HomePage,
-    SelectListComponent,
-    CheckboxComponent,
-    RadioComponent,
-    RadioYnComponent,
-    InputComponent,
+    LoginPage
   ],
   imports: [
     BrowserModule,

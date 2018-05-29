@@ -1,11 +1,10 @@
-import { FormPage } from './../pages/form/form-page';
-import { HomePage } from './../pages/home/home';
 import { Component, ViewChild } from '@angular/core';
 import { Platform, Nav, ToastController, LoadingController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { LoginPage } from '../pages/login/login';
+import { HomePage } from './../pages/home/home';
 import { ContratosPage } from '../pages/contratos/contratos';
 import { ParticipacaoPage } from '../pages/participacao/participacao';
 
@@ -18,7 +17,6 @@ export class MyApp {
 
   @ViewChild(Nav) nav: Nav;
   rootPage: any = LoginPage;
-  
   pages: Array<{ title: string, component: any, icon: string }>;
 
   loginProdiver: any = '';
@@ -57,8 +55,20 @@ export class MyApp {
 
     this.loginProdiver.logout().then((success) => {
       loading.dismiss();
-      console.log(success);
-      this.nav.push(this.rootPage);
+      this.reload('Ambiente encerrado!');
+    }).catch((err) => {
+      console.log(err);
+    });
+  }
+
+  private reload(mensagem:string){
+    let toast = this.toastCtrl.create({ duration: 1500 });
+    let self = this;
+
+    toast.setMessage(mensagem);
+    toast.present();
+    toast.onDidDismiss(() => {
+      self.nav.setRoot(LoginPage);
     });
   }
 

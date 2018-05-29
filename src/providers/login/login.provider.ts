@@ -5,6 +5,7 @@ import { contentHeaders } from './../../properties/headers';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { Injectable } from '@angular/core';
 import { RequestOptions } from '@angular/http';
+
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/toPromise';
 
@@ -76,13 +77,13 @@ export class LoginProvider {
       self.http.post(api, this._url, body, _options)
         .map(res =>  res.json())
         .toPromise().then(function (data) {
-            console.log(data);
-            this.localStorage.removeItem('currentUser');
-            this.localStorage.removeItem('token');
+            localStorage.removeItem('currentUser');          
+            localStorage.removeItem('token');
+            
             _success(data);
         }).catch(function (err) {
           let retorno = JSON.parse(err._body);
-          _reject(retorno.message);
+          _reject(retorno);
         });
     });
   }
