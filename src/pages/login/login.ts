@@ -1,6 +1,6 @@
 import { LoginProvider } from './../../providers/login/login.provider';
 import { Component } from '@angular/core';
-import { NavController, NavParams, ToastController, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, ToastController, LoadingController, AlertController } from 'ionic-angular';
 import { HomePage } from '../home/home';
 
 @Component({
@@ -12,6 +12,7 @@ export class LoginPage {
   constructor(public navCtrl: NavController, 
               public navParams: NavParams, 
               public toastCtrl: ToastController, 
+              public alertCtrl: AlertController,
               public _loadingController: LoadingController, 
               private loginProvider: LoginProvider) {}
 
@@ -38,6 +39,36 @@ export class LoginPage {
       loading.dismiss();
 
     });
+  }
+
+  recuperarSenha(){
+    let alert = this.alertCtrl.create({
+      title: 'RECUPERAR SENHA',
+      subTitle: 'Informe seu email e uma nova senha enviada para você',
+      inputs: [
+        {
+          name: 'email',
+          placeholder: 'email@provedor.com'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Voltar',
+          role: 'voltar',
+          handler: () => {
+              
+          }
+        },
+        {
+          text: 'ENVIAR',
+          handler: () => {
+            // Quando a pagina de Reciclagem existir, informar ela aqui
+            console.log('Ir Para reciclagem');
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 
 }

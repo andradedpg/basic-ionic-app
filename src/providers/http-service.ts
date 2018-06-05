@@ -43,6 +43,13 @@ export class HttpService {
     return this.http.post(`${this._baseApi}${url}`, data, options);
   }
 
+  delete(url, baseUrl:string = null, id){
+    let _options = new RequestOptions({ headers: this.headers });
+    let _url = url+'/'+id;
+    
+    return this.http.delete(`${this._baseApi}${_url}`, _options);
+  }
+
 	public get baseApi(): string {
 		return this._baseApi;
 	}

@@ -1,25 +1,25 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-/**
- * Generated class for the ReciclagemPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+@IonicPage({
+  name: 'page-reciclagem',
+  segment: 'page-reciclagem/:id'
+})
 
-@IonicPage()
 @Component({
   selector: 'page-reciclagem',
   templateUrl: 'reciclagem.html',
 })
 export class ReciclagemPage {
 
+  cec_id:any; //ClienteEventoContrato (ID) || Participacao (ID)
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.cec_id = this.navParams.get('id');
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ReciclagemPage');
+    console.log('cecid: '+this.cec_id);
   }
 
 }

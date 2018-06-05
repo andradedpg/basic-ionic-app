@@ -86,7 +86,7 @@ export class HomePage {
 
   setEvento(id){
     let evento = this.eventos.find(evento => evento.id == id);
-    let msg = (evento.status === 'A') ? 'Selecionando evento...' : 'Abrindo e selecinando evento...';
+    let msg = (evento.status === 'A') ? 'Selecionando evento...' : 'Abrindo e selecionando evento...';
 
     let alert = this._alertCtrl.create({
       title: 'Confirmar Abertura',
@@ -113,6 +113,7 @@ export class HomePage {
               })
             }else{
               localStorage.setItem('evento_aberto', JSON.stringify(evento));
+              load.dismiss();
               this.reload('Evento selecionado! Recarregando ambiente');
             }
           }

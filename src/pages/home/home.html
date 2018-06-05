@@ -53,17 +53,17 @@
       </ion-card-header>
       <ion-item> {{ evento_aberto.acao.nome }} - {{ evento_aberto.local.nome }} </ion-item>
       <ion-row>
-        <ion-col col-6> 
+        <ion-col col-5> 
           <button ion-button icon-start color="danger" (click)="fecharEvento()">
             <ion-icon name="close-circle"></ion-icon>
             FECHAR
           </button>
         </ion-col>  
 
-        <ion-col col-6> 
+        <ion-col col-7> 
           <button ion-button icon-start color="lightrecicla" (click)="goParticipacao()">
             <ion-icon name="ios-git-compare"></ion-icon>
-            RECICLAR
+            PARTICIPANTES
           </button>
         </ion-col>  
       </ion-row>

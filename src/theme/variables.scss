@@ -79,3 +79,7 @@ $colors: (
 
 @import "roboto";
 @import "noto-sans";
+
+body {
+  word-wrap: break-word;
+}

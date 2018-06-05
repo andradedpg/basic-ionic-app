@@ -24,6 +24,7 @@ import { LoginPage } from '../pages/login/login';
 import { HomePageModule } from '../pages/home/home.module';
 import { ContratoModule } from '../pages/contratos/contratos.module';
 import { ParticipacaoPageModule } from '../pages/participacao/participacao.module';
+import { ReciclagemPageModule } from '../pages/reciclagem/reciclagem.module';
 
 // Services
 import { ConfigService } from './../providers/config-service';
@@ -46,7 +47,8 @@ import 'rxjs/add/operator/toPromise';
     IonicModule.forRoot(MyApp),
     ContratoModule,
     HomePageModule,
-    ParticipacaoPageModule
+    ParticipacaoPageModule,
+    ReciclagemPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
