@@ -8,6 +8,7 @@ import { Evento } from '../../domain/evento';
 import { Participacao } from '../../domain/participacao';
 import { ReciclagemPage } from '../reciclagem/reciclagem';
 import { ContratoSearchPage } from '../contratos/contrato-search/contrato-search';
+import { ContratoProvider } from '../../providers/contrato/contrato.provider';
 
 //@IonicPage()
 @Component({
@@ -29,7 +30,20 @@ export class ParticipacaoPage {
               public toastCtrl: ToastController,
               public loading: LoadingController,
               public alertCtrl: AlertController,
-              public participacaoProvider: ParticipacaoProvider) {
+              public participacaoProvider: ParticipacaoProvider,
+              public contratoProvider: ContratoProvider) {
+      
+      if(this.navParams.get('id') !== undefined && this.navParams.get('id') > 0){
+        let load  = this.loading.create({content: 'Consultados dados...'});
+        load.present();
+
+        this.contratoProvider.getById(this.navParams.get('id'))
+                             .subscribe(contrato => {
+                                this.getEventoAberto();
+                                load.dismiss();
+                                this.adicionarParticipante(contrato);
+                             });
+      } 
       
       this.searchControl = new FormControl();     
       this.getEventoAberto();
@@ -76,6 +90,35 @@ export class ParticipacaoPage {
     this.navCtrl.push(ReciclagemPage, {'id':participante.id});
   }
 
+  adicionarParticipante(contrato:any){
+    let load  = this.loading.create({content: 'Adicionando participante...'});
+    let toast = this.toastCtrl.create({ duration: 2000 });
+    let self  = this;
+    load.present();
+    
+    let participacao:any = {cliente_id:  contrato.cliente.id,
+                            evento_id:   this.evento_aberto.id,
+                            contrato_id: contrato.id,
+                            modulo_id:  4 ,
+                            status: 'A'};
+    
+    this.participacaoProvider.adicionarParticipante(participacao).then(function(result:any){
+      load.dismiss();
+      self.navCtrl.push(ReciclagemPage, {
+        'id':result.id
+      })
+    }).catch(function(reject){
+      load.dismiss();
+      toast.setMessage(reject.msg);
+      toast.present();
+      self.navCtrl.push(ReciclagemPage, {
+        'id':reject.participacao.id
+      })
+      
+    });
+
+  }
+
   removerParticipante(participante:any){
     let alert = this.alertCtrl.create({
       title: 'CONFIRMAR REMOÇÃO',
@@ -89,14 +132,17 @@ export class ParticipacaoPage {
         {
           text: 'REMOVER',
           handler: () => {
-            var load  = this.loading.create({content: 'Removendo participante...'});
+            let load  = this.loading.create({content: 'Removendo participante...'});
             let toast = this.toastCtrl.create({ duration: 2000 });
+            let self  = this;
             load.present();
 
             this.participacaoProvider.removerParticipante(participante).then(function(result:any){  
               load.dismiss();
-              toast.setMessage(result.success);
+              toast.setMessage('Partipante removido!');
               toast.present();
+              
+              self.navCtrl.setRoot(ParticipacaoPage);
             }).catch(function(reject){
               if(reject.status === 500){
                 load.dismiss();

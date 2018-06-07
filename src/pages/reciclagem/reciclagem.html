@@ -9,7 +9,43 @@
 </ion-header>
 
 <ion-content padding>
+  <ion-card> 
+    <ion-item color="lightrecicla" text-center>
+      <ion-icon name="pin" item-start></ion-icon>
+      LOCAL RECICLAGEM
+    </ion-item>   
+    <ion-item>{{ evento_aberto.acao.nome }} - {{ evento_aberto.local.nome }}</ion-item>   
+  </ion-card>
 
+  <div id="infoContrato" *ngIf="participante !== false">
+    <ion-card>    
+      <ion-item color="lightrecicla" text-center>
+        <ion-icon name="information-circle" item-start></ion-icon>
+        DADOS DO CLIENTE
+      </ion-item>   
+
+      <ion-item>
+        <ion-icon name="contact" item-start></ion-icon>
+        {{ participante.cliente.nome }}    
+      </ion-item>
+      <ion-item>
+        <ion-icon name="document" item-start></ion-icon>
+        {{ participante.contrato.numero }}
+      </ion-item>
+    </ion-card>
+
+    <ion-card>    
+        <ion-item color="lightrecicla" text-center>
+          <ion-icon name="ios-git-compare" item-start></ion-icon>
+          RESÍDUOS
+        </ion-item>   
+        <ion-item>
+          
+           
+        </ion-item>
+      </ion-card>
+  </div>
+  
 </ion-content>
 
 <ion-footer>

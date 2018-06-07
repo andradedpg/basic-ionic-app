@@ -6,6 +6,7 @@ import { ContratoProvider } from './../../../providers/contrato/contrato.provide
 import { Contrato } from '../../../domain/contrato';
 
 import { ContratoFormPage } from './../contrato-form/contrato-form';
+import { ParticipacaoPage } from '../../participacao/participacao';
 
 @Component({
   selector: 'contrato-search',
@@ -27,7 +28,7 @@ export class ContratoSearchPage {
     acoes() {
         this.buttons = [
             {nome:'Editar', icon:'create', color:'danger', pageDestino:ContratoFormPage},
-            {nome:'Reciclar', icon:'ios-git-compare', color:'lightrecicla', pageDestino:ContratoFormPage}
+            {nome:'Reciclar', icon:'ios-git-compare', color:'lightrecicla', pageDestino:ParticipacaoPage}
         ];
     }
  
