@@ -9,6 +9,7 @@
 </ion-header>
 
 <ion-content padding>
+  <!--
   <ion-card> 
     <ion-item color="lightrecicla" text-center>
       <ion-icon name="pin" item-start></ion-icon>
@@ -16,7 +17,7 @@
     </ion-item>   
     <ion-item>{{ evento_aberto.acao.nome }} - {{ evento_aberto.local.nome }}</ion-item>   
   </ion-card>
-
+ 
   <div id="infoContrato" *ngIf="participante !== false">
     <ion-card>    
       <ion-item color="lightrecicla" text-center>
@@ -33,18 +34,76 @@
         {{ participante.contrato.numero }}
       </ion-item>
     </ion-card>
-
+    </div>
+  -->
     <ion-card>    
         <ion-item color="lightrecicla" text-center>
           <ion-icon name="ios-git-compare" item-start></ion-icon>
           RESÍDUOS
         </ion-item>   
-        <ion-item>
+        
+        <ion-item *ngIf="infoReciclagem !== false">
+          <ion-row>
+            <ion-col col-6 text-left>
+              <p>Peso total: <b>{{ infoReciclagem.peso_total }}KG</b></p>
+              <p>Bônus total:<b>R${{ infoReciclagem.bonus_total }}</b></p>
+            </ion-col>
+
+            <ion-col col-6 text-right>
+              <button ion-button color="lightrecicla" (click)="salvarReciclagem()">
+                Salvar 
+              </button>
+            </ion-col>
+          </ion-row>
           
-           
         </ion-item>
+        
+        <hr>
+
+        <ion-item *ngIf="residuosAvaiable !== false">
+          <ion-label>Item</ion-label>
+          <ion-select [(ngModel)]="residuoOnSelected" cancelText="Cancelar" okText="Selecionar" (ionChange)="mostrarPeso()">
+            <ion-option *ngFor="let residuo of residuosAvaiable" [value]="residuo">
+              {{ residuo.nome }} (R${{ residuo.valor }} por {{ residuo.medidoem }})
+            </ion-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item *ngIf="showInputPeso">
+          <ion-label>Peso</ion-label>
+          <ion-input type="number" [(ngModel)]="inputPeso"></ion-input>
+        </ion-item>
+
+        <button ion-button icon-start color="lightrecicla" (click)="adicionarResiduo()">
+          <ion-icon name="add-circle"></ion-icon>
+          ADICIONAR
+        </button>
+
+        <hr>
+
+        <ion-list *ngIf="showResiduosAdded">
+          <ion-item *ngFor="let residuoAdded of residuosAdded; let i = index" text-center>
+            <ion-card>
+              <ion-card-header>
+                  <b>{{ residuoAdded.nome }}</b> 
+                  <p>Peso: <b>{{ residuoAdded.peso }} {{ residuoAdded.medidoem }} </b></p> 
+                  <p>Bônus: <b>R${{ residuoAdded.total }}</b></p>
+              </ion-card-header>
+              <button ion-button icon-start color="danger" (click)="removerResiduoAdicionado(i)">
+                <ion-icon name="cancel"></ion-icon>
+                REMOVER
+              </button>
+
+            </ion-card>
+          </ion-item>
+        </ion-list>
+        
       </ion-card>
-  </div>
+      
+    <button *ngIf="showResiduosAdded" ion-button icon-start color="lightrecicla" (click)="salvarReciclagem()">
+      <ion-icon name="save"></ion-icon>
+      Salvar
+    </button>
   
 </ion-content>
 

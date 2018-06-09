@@ -1,3 +1,4 @@
+
 export class Residuo {
 
     public id:number;

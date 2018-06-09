@@ -4,6 +4,11 @@ import { IonicPage, NavController, NavParams, AlertController, ToastController, 
 import { ParticipacaoProvider } from '../../providers/participacao/partipacao.provider';
 import { Participacao } from '../../domain/participacao';
 
+import { ResiduoProvider } from '../../providers/reciclagem/residuo.provider';
+
+import { ReciclagemProvider } from '../../providers/reciclagem/reciclagem.provider';
+import { Reciclagem } from '../../domain/reciclagem';
+
 @IonicPage({
   name: 'page-reciclagem',
   segment: 'page-reciclagem/:id'
@@ -15,25 +20,73 @@ import { Participacao } from '../../domain/participacao';
 })
 export class ReciclagemPage {
   evento_aberto:any;
+
   cec_id:any; //ClienteEventoContrato (ID) || Participacao (ID)
   participante: Participacao | false = false;
+  
+  residuosAvaiable:  any | false = false;
+  residuoOnSelected: any | false = false;
+  residuosAdded:     Array<any>  = [];
+
+  inputPeso:number;
+  
+  showInputPeso: boolean = false;
+  showResiduosAdded: boolean = false;
+
+  infoReciclagem: any | false = false;
   
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               public participacaoProvider: ParticipacaoProvider,
+              public residuoProvider: ResiduoProvider,
+              public reciclagemProvider: ReciclagemProvider,
               public alertCtrl: AlertController,
               public loadCtrl: LoadingController,
               public toastCtrl: ToastController
             ) {
       this.cec_id = this.navParams.get('id');
+      
       this.getParticipante();    
       this.getEventoAberto();
-
+      this.getResiduos();        
       
   }
 
   ionViewDidLoad() {
-    console.log('cecid: '+this.cec_id);
+    
+  }
+
+  adicionarResiduo(){
+    if(!this.residuoOnSelected)     return this.alertInfo('Selecione uma resíduo primeiro');
+    if(this.inputPeso == undefined) return this.alertInfo('Informe o peso do resíduo');
+
+    this.residuoOnSelected.peso  = this.inputPeso;
+    // Formula do arredondar (?)
+    this.residuoOnSelected.total = (this.inputPeso * this.residuoOnSelected.valor);
+
+    this.residuosAdded.push(this.residuoOnSelected);
+
+    this.inputPeso         = undefined;
+    this.residuoOnSelected = false;
+    this.showInputPeso     = false;
+
+    if(!this.showResiduosAdded) this.showResiduosAdded = true;
+    this.infoReciclagem = this.getInfoTotal();
+  }
+
+  removerResiduoAdicionado(i:number){
+    this.residuosAdded.splice(i);
+  }
+
+  mostrarPeso(){ this.showInputPeso = true; }
+
+  salvarReciclagem(){
+    let reciclagem:any = {cliente_evento_contrato_id: this.cec_id,
+                          residuos: this.residuosAdded};
+    
+    this.reciclagemProvider.adicionarReciclagem(reciclagem as Reciclagem).then(function(result){
+        console.log(result);
+    })
   }
 
   /** Privates */
@@ -61,6 +114,37 @@ export class ReciclagemPage {
                                 this.participante = result;  
                                 load.dismiss();
                              });
+  }
+
+  private getResiduos(){
+    let load = this.loadCtrl.create({content: 'Buscando resíduos recicláveis...' });
+    load.present();
+    this.residuoProvider.getResiduoAtivoByEventoId(this.evento_aberto.id)
+                             .subscribe(result =>{
+                                this.residuosAvaiable = result;  
+                                load.dismiss();
+                             });
+  }
+
+  private getInfoTotal():any{
+    let peso  = 0.00;
+    let bonus = 0.00;
+
+    this.residuosAdded.forEach(function(item, i){
+      peso  = parseFloat(item.peso) + peso;
+      bonus = parseFloat(item.valor) + bonus;
+    });
+
+    return {peso_total: peso.toFixed(2), bonus_total:bonus.toFixed(2)};
+  }
+
+
+  private alertInfo(msg:string):void{
+    let toast = this.toastCtrl.create({ duration: 2000 }); 
+    
+    toast.setMessage(msg);
+    toast.present();
+  
   }
 
 

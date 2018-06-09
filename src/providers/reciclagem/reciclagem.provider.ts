@@ -2,30 +2,27 @@ import { Injectable } from '@angular/core';
 import { HttpService } from './../http-service';
 
 import { Observable } from 'rxjs/Rx'
-import { Residuo } from '../../domain/residuo';
+import { Reciclagem } from '../../domain/reciclagem';
 
 @Injectable()
-export class ResiduoProvider {
-  public residuo: Residuo;
-  private _url: string = '/vigencias';
+export class ReciclagemProvider {
+  public reciclagem: Reciclagem;
+  private _url: string = '/reciclagem';
 
   constructor(public http: HttpService) { }
-  
-  public getById(id:number): Observable <any>{
-    return this.http.get(this._url+'/'+id)
-              .map(res => {
-                return res.json().data;
+ 
+  adicionarReciclagem(reciclagem: Reciclagem){
+    return new Promise((success, reject) => {
+        let _error = this._manageMessage;
+        let action = this.http.post(this._url, null, JSON.stringify(reciclagem));
+        
+        action.map(res => res.json().data)
+              .toPromise().then(function (data){
+                success(data);
+              }).catch(function (err) {
+                reject(_error(err));
               });
-  }
-
-  public getResiduoAtivoByEventoId(evento_id:number): Observable <any>{
-    return this.http.get(this._url+'/searchInEvento/'+evento_id)
-              .map(res => {
-                return res.json().residuos;
-              })
-              .catch(res => {
-                return res
-              });
+      });
   }
   
 
