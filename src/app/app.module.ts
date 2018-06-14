@@ -30,11 +30,14 @@ import { ReciclagemPageModule } from '../pages/reciclagem/reciclagem.module';
 import { ConfigService } from './../providers/config-service';
 import { HttpService } from './../providers/http-service';
 import { ConnectivityService } from './../providers/connectivity-service';
+import { headers } from '../properties/headers';
+
 import { LoginProvider } from '../providers/login/login.provider';
 import { UserProvider } from '../providers/user/user.provider';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
+
 
 @NgModule({
   declarations: [
@@ -66,6 +69,7 @@ import 'rxjs/add/operator/toPromise';
     LaunchNavigator,
     NativeStorage,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
+    headers,
     LoginProvider,
     UserProvider,
     ScreenOrientation,

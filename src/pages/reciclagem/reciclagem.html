@@ -39,8 +39,8 @@
     <ion-card>    
         <ion-item color="lightrecicla" text-center>
           <ion-icon name="ios-git-compare" item-start></ion-icon>
-          RESÍDUOS
-        </ion-item>   
+            RESÍDUOS
+          </ion-item>   
         
         <ion-item *ngIf="infoReciclagem !== false">
           <ion-row>
@@ -59,10 +59,10 @@
         </ion-item>
         
         <hr>
-
+        <ion-item>Escolha um Resíduo</ion-item>
         <ion-item *ngIf="residuosAvaiable !== false">
-          <ion-label>Item</ion-label>
-          <ion-select [(ngModel)]="residuoOnSelected" cancelText="Cancelar" okText="Selecionar" (ionChange)="mostrarPeso()">
+          <ion-label>Selecione</ion-label>
+          <ion-select class="select" [(ngModel)]="residuoOnSelected" cancelText="Cancelar" okText="Selecionar" (ionChange)="mostrarPeso()">
             <ion-option *ngFor="let residuo of residuosAvaiable" [value]="residuo">
               {{ residuo.nome }} (R${{ residuo.valor }} por {{ residuo.medidoem }})
             </ion-option>

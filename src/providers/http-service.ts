@@ -2,23 +2,23 @@ import { ConfigService } from './config-service';
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
 
-import { contentHeaders } from './../properties/headers';
+import { headers } from './../properties/headers';
 
 @Injectable()
 export class HttpService {
 
-  private headers: Headers;
   private _baseApi: string;
 
-  constructor(private http: Http, private _configService: ConfigService) {
-    this.headers = contentHeaders;
+  constructor(private http: Http, 
+              private _configService: ConfigService,
+              private _headers: headers) {
     this.baseApi = this._configService.url;
     /*this.headers.append('Client-Token', JSON.parse(localStorage.getItem('token')));
     this.headers.append('Client-Type', '1');*/
   }
 
   get(url: any, baseUrl?:string) {
-    let _options = new RequestOptions({ headers: this.headers });
+    let _options = new RequestOptions({ headers: this._headers.getHeaders() });
 
     if (!!baseUrl) {
       return this.http.get(`${baseUrl}${url}`, _options);
@@ -27,7 +27,7 @@ export class HttpService {
   }
 
   put(url, data, id){
-    let _options = new RequestOptions({ headers: this.headers });
+    let _options = new RequestOptions({  headers: this._headers.getHeaders() });
     let _url = url+'/'+id;
     
     return this.http.put(`${this._baseApi}${_url}`, data ,_options);
@@ -35,7 +35,7 @@ export class HttpService {
 
   post(url, baseUrl:string = null, data, options:RequestOptions = null ) {
     if(!options){
-      options = new RequestOptions({ headers: this.headers });
+      options = new RequestOptions({ headers: this._headers.getHeaders() });
     }
     if (!!baseUrl) {      
       return this.http.post(`${baseUrl}${url}`, data, options);
@@ -44,7 +44,7 @@ export class HttpService {
   }
 
   delete(url, baseUrl:string = null, id){
-    let _options = new RequestOptions({ headers: this.headers });
+    let _options = new RequestOptions({ headers: this._headers.getHeaders() });
     let _url = url+'/'+id;
     
     return this.http.delete(`${this._baseApi}${_url}`, _options);

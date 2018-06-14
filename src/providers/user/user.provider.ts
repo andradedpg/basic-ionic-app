@@ -24,7 +24,7 @@ export class UserProvider {
       const url = '/user/getUserInfo';
       return this.http.get(url)
                 .map(res => res.json().user.data as User)
-                .catch(err => Observable.throw(err.message));
+                .catch(err => Observable.throw(err));
   };
 
   /**

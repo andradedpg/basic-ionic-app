@@ -24,7 +24,7 @@ export class LoginPage {
 
     loading.present();
 
-    this.loginProvider.fazerLogin(login).then((success) => {
+    this.loginProvider.fazerLogin(login).then((success:any) => {
       
       loading.dismiss();
       toast.setMessage('Logado! Carregando ambiente...');
@@ -33,7 +33,7 @@ export class LoginPage {
         self.navCtrl.setRoot(HomePage);
       });
 
-    }).catch((err) => {
+    }).catch((err:any) => {
       toast.setMessage('Login ou senha inválido : ' + err);
       toast.present();
       loading.dismiss();

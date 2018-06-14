@@ -62,7 +62,8 @@ export class ReciclagemPage {
 
     this.residuoOnSelected.peso  = this.inputPeso;
     // Formula do arredondar (?)
-    this.residuoOnSelected.total = (this.inputPeso * this.residuoOnSelected.valor);
+    this.residuoOnSelected.total = (this.residuoOnSelected.peso * this.residuoOnSelected.valor);
+    this.residuoOnSelected.total = this.residuoOnSelected.total.toFixed(2);
 
     this.residuosAdded.push(this.residuoOnSelected);
 
@@ -127,15 +128,19 @@ export class ReciclagemPage {
   }
 
   private getInfoTotal():any{
-    let peso  = 0.00;
-    let bonus = 0.00;
+    let peso;
+    let bonus;
 
     this.residuosAdded.forEach(function(item, i){
-      peso  = parseFloat(item.peso) + peso;
-      bonus = parseFloat(item.valor) + bonus;
+      
+      peso  = parseFloat(item.peso  + peso);
+      bonus = parseFloat(item.total + bonus);
+
+      console.log('peso:', item.peso, peso);
+      console.log('bonus:', item.total, bonus);
     });
 
-    return {peso_total: peso.toFixed(2), bonus_total:bonus.toFixed(2)};
+    return {peso_total: peso, bonus_total:bonus};
   }
 
 

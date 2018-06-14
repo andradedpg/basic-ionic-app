@@ -1,6 +1,17 @@
 import { Headers } from '@angular/http';
+import { Injectable } from '@angular/core';
 
-export const contentHeaders = new Headers();
-contentHeaders.append('Accept', 'application/json');
-contentHeaders.append('Content-Type', 'application/json');
-contentHeaders.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
+@Injectable()
+export class headers{
+    contentHeaders = new Headers();
+    
+    constructor(){
+        this.contentHeaders.append('Accept', 'application/json');
+        this.contentHeaders.append('Content-Type', 'application/json');
+        this.contentHeaders.append('Authorization', 'Bearer ' + localStorage.getItem('token')); 
+    }
+
+    getHeaders(){
+        return this.contentHeaders;
+    }
+};

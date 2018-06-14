@@ -1,10 +1,9 @@
 import { HttpService } from './../http-service';
 import { ConfigService } from './../config-service';
-import { contentHeaders } from './../../properties/headers';
 
-import { NativeStorage } from '@ionic-native/native-storage';
+//import { NativeStorage } from '@ionic-native/native-storage';
 import { Injectable } from '@angular/core';
-import { RequestOptions } from '@angular/http';
+import { RequestOptions, Headers } from '@angular/http';
 
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/toPromise';
@@ -16,21 +15,20 @@ export class LoginProvider {
   private _client_secret: string;
   private _baseApi: string = '/oauth/token/';
 
-  private nativeStorage: NativeStorage;
+  //private nativeStorage: NativeStorage;
 
   constructor(public http: HttpService, 
-              private _nativeStorage: NativeStorage, 
+             // private _nativeStorage: NativeStorage, 
               private _configService: ConfigService) {
 
-    this.nativeStorage  = _nativeStorage;
+    //this.nativeStorage  = _nativeStorage;
     this._url           = this._configService.url;
     this._client_id     = this._configService.client_id;
     this._client_secret = this._configService.client_secret;
   }
 
   fazerLogin(login) {
-    let _headers = contentHeaders;
-    let _options = new RequestOptions({ headers: _headers });
+    let _options = new RequestOptions({ headers: new Headers({ 'Content-Type': 'application/json' }) });
     let api = `${this._baseApi}`;
     let self = this;
 
@@ -48,8 +46,12 @@ export class LoginProvider {
       self.http.post(api, this._url, body, _options)
         .map(res => res.json())
         .toPromise().then(function (data) {
-            self._nativeStorage.setItem('token', data.access_token);
+            localStorage.removeItem('currentUser');          
+            localStorage.removeItem('token');
+
+            localStorage.setItem('currentUser', data.access_token);
             localStorage.setItem('token', data.access_token);
+
             _success(data);
         }).catch(function (err) {
           let retorno = JSON.parse(err._body);
@@ -63,9 +65,6 @@ export class LoginProvider {
     let api = '/logout';
     let self = this;
 
-    let _headers = contentHeaders;
-    let _options = new RequestOptions({ headers: _headers });
-
     let body = JSON.stringify({
       client_id: this._client_id,
       client_secret: this._client_secret
@@ -74,7 +73,7 @@ export class LoginProvider {
     return new Promise((success, reject) => {
       let _success = success;
       let _reject = reject;
-      self.http.post(api, this._url, body, _options)
+      self.http.post(api, this._url, body)
         .map(res =>  res.json())
         .toPromise().then(function (data) {
             localStorage.removeItem('currentUser');          

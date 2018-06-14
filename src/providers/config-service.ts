@@ -7,9 +7,7 @@ import * as properties from '../properties/config';
 export class ConfigService {
 
   // Ainda sobre a MV ... remover 
-  public static get _wsUrl(): string { return properties.default.urlWs};
-  public static get _portalUrl(): string { return properties.default.urlPortal };
-  public googleApiKey: string = 'AIzaSyBEOhhiR4-t0fJdXlUhbjKt9h3NHjB3t7Q';
+  //public googleApiKey: string = 'AIzaSyBEOhhiR4-t0fJdXlUhbjKt9h3NHjB3t7Q';
 
   public url: string;
   public client_id: string;
