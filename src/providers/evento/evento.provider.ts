@@ -45,6 +45,7 @@ export class EventoProvider {
   /** Privates  */
 
   private _manageMessage(retorno){
+    console.log(retorno);
     let msgs = JSON.parse(retorno._body);
     let r = ' Atenção aos campos: ';
     for (var key in msgs) {

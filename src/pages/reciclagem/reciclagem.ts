@@ -77,9 +77,13 @@ export class ReciclagemPage {
 
   removerResiduoAdicionado(i:number){
     this.residuosAdded.splice(i);
+    this.alertInfo('Resíduo removido');
+    this.infoReciclagem = this.getInfoTotal();
   }
 
-  mostrarPeso(){ this.showInputPeso = true; }
+  mostrarPeso(){ 
+    this.showInputPeso = true; 
+  }
 
   salvarReciclagem(){
     let reciclagem:any = {cliente_evento_contrato_id: this.cec_id,
@@ -128,19 +132,20 @@ export class ReciclagemPage {
   }
 
   private getInfoTotal():any{
-    let peso;
-    let bonus;
+    let peso_total  = 0;
+    let bonus_total = 0;
 
     this.residuosAdded.forEach(function(item, i){
       
-      peso  = parseFloat(item.peso  + peso);
-      bonus = parseFloat(item.total + bonus);
+      peso_total  += parseFloat(item.peso);
+      bonus_total += parseFloat(item.total);
 
-      console.log('peso:', item.peso, peso);
-      console.log('bonus:', item.total, bonus);
     });
 
-    return {peso_total: peso, bonus_total:bonus};
+    return {
+        peso_total: String(this.arredondar(peso_total)), 
+        bonus_total:String(this.arredondar(bonus_total))
+      };
   }
 
 
@@ -150,6 +155,11 @@ export class ReciclagemPage {
     toast.setMessage(msg);
     toast.present();
   
+  }
+
+  private arredondar(valor) {
+    valor = (valor >= parseFloat('0.005') && valor <= parseFloat('0.009')) ? parseFloat('0.01') : valor;
+    return Math.floor(valor * 100) / 100;
   }
 
 

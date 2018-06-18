@@ -126,13 +126,25 @@ export class HomePage {
   /* Privates */
 
   private checkEventoAberto(){
-    if(localStorage.getItem('evento_aberto')){
-      this.evento_aberto = JSON.parse(localStorage.getItem('evento_aberto'));
-    }else{
-      this.eventoProvider.getDisponiveis().subscribe((eventos) => {
-        this.formatEventos(eventos);
-      })
-    }
+    this.eventoProvider.getDisponiveis().subscribe((eventos) => {
+      
+      if(localStorage.getItem('evento_aberto')){
+        let ev     = JSON.parse(localStorage.getItem('evento_aberto'));
+        /* Checa se o evento aberto no dispositivo está mesmo aberto no servidor */
+        let check  = eventos.find(evento => (evento.id === ev.id && evento.status === 'C')); 
+      
+        if(check !== undefined && check.hasOwnProperty('id')){
+          this.evento_aberto = ev;
+        }else{
+          localStorage.removeItem('evento_aberto');
+          this.formatEventos(eventos);  
+        }
+
+      }else{
+        this.formatEventos(eventos);  
+      }
+    })
+    
   }
 
   private formatEventos(data: any){

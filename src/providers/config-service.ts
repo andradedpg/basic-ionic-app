@@ -6,9 +6,6 @@ import * as properties from '../properties/config';
 @Injectable()
 export class ConfigService {
 
-  // Ainda sobre a MV ... remover 
-  //public googleApiKey: string = 'AIzaSyBEOhhiR4-t0fJdXlUhbjKt9h3NHjB3t7Q';
-
   public url: string;
   public client_id: string;
   public client_secret: string;
