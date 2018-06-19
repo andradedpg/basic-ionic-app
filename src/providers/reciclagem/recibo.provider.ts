@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpService } from './../http-service';
+import { Http, Headers, RequestOptions } from '@angular/http';
 
 import { Observable } from 'rxjs/Rx'
 import { Reciclagem } from '../../domain/reciclagem';
@@ -8,22 +8,48 @@ import * as properties from '../../properties/config';
 @Injectable()
 export class ReciboProvider {
   public reciclagem: Reciclagem;
-  private _url: string;
+  private _properties: any;
 
-  constructor(public http: HttpService) {
-    let properties:any = this.getSMSProperties();
-    this._url = properties.url; 
+  constructor(public http: Http) { 
    }
  
   enviarEmail(reciclagem: Reciclagem){
     
   }
 
-  enviarSMS(reciclagem: any){
-      /// Daqui é possível chamar a api do pitchwink sem problemas
-      let msg     = 'LIGHTRECICLA - PEDIDO N:'+ reciclagem.codigo +' em '; // Formatar msg em outro metodo
-      let mobile  = "55"+reciclagem.celularInformado;
+  enviarSMS(reciclagem: any, celular):Observable <any>{
+    this._properties = this.getSMSProperties();
+      
+      let msg     = 'LIGHTRECICLA - PEDIDO N:'+ reciclagem.codigo +' em ';
+      
+          msg    += reciclagem.data.toLocaleString()+'\n';
+          msg    += "Bonus total: R$"+reciclagem.bonus_total+'\n';
+          msg    += "O planeta agradece ;)";
+
+      let mobile  = "55"+celular;
           msg     = encodeURIComponent(msg);
+      let query   = "?Credencial="+this._properties.credencial+
+                    "&Token="+this._properties.token+
+                    "&Principal_User="+this._properties.user+
+                    "&Aux_User="+reciclagem.codigo+
+                    "&Mobile="+mobile+
+                    "&Send_Project=N&Message="+msg;
+      
+      let headers = new Headers();
+      headers.append('Content-Type', '');
+
+      let _options = new RequestOptions({ headers:headers });              
+      
+     return this.http.request(this._properties.url+query, _options)
+                      .map(result => {
+                        console.log(result.json());
+                        console.log(result);
+                        return result;
+                      })
+                      .catch((error: Response | any) => {
+                        console.log(error);
+                        return Observable.throw(error.json());
+                      });                
           
   }
 
@@ -44,6 +70,7 @@ export class ReciboProvider {
     let re = /[(,),-]/gi;
     return telefone.replace(re, '');
   }
+
   private _manageMessage(retorno){
     
     let msgs = JSON.parse(retorno._body);

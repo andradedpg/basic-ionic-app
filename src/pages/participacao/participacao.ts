@@ -9,6 +9,7 @@ import { Participacao } from '../../domain/participacao';
 import { ReciclagemPage } from '../reciclagem/reciclagem';
 import { ContratoSearchPage } from '../contratos/contrato-search/contrato-search';
 import { ContratoProvider } from '../../providers/contrato/contrato.provider';
+import { ReciclagemHistoricoPage } from '../reciclagem/reciclagem-historico/reciclagem-historico';
 
 //@IonicPage()
 @Component({
@@ -76,18 +77,31 @@ export class ParticipacaoPage {
 
   acoes() {
     this.buttons = [
-        {nome:'Remover', icon:'cancel', color:'danger', action:'remover' },
-        {nome:'Reciclar', icon:'ios-git-compare', color:'lightrecicla', action:'reciclar'}
+      {nome:'Reciclar', icon:'git-compare', color:'lightrecicla', action:'reciclar'},
+      {nome:'Histórico', icon:'stats', color:'primary', action:'historico'},
+      {nome:'Remover', icon:'close', color:'danger', action:'remover' }
     ];  
   }
 
   buttonClicked(button:any, participante:Participacao): void{
-    if(button.action === 'remover')  this.removerParticipante(participante); 
-    if(button.action === 'reciclar') this.reciclar(participante); 
+    if(button.action === 'remover')   this.removerParticipante(participante); 
+    if(button.action === 'reciclar')  this.goTo('reciclar', participante); 
+    if(button.action === 'historico') this.goTo('historico', participante);
   }
-
-  reciclar(participante:Participacao): void{
-    this.navCtrl.push(ReciclagemPage, {'id':participante.id});
+  
+  goTo(local:string, participante:any | Participacao): void{
+    switch(local){
+      case 'contratos':
+        this.navCtrl.push(ContratoSearchPage, {});
+        break;
+      case 'historico':
+        this.navCtrl.push(ReciclagemHistoricoPage, {'id':participante.id});
+        break;
+      case 'reciclar':
+        this.navCtrl.push(ReciclagemPage, {'id':participante.id});
+        break;  
+    }
+    
   }
 
   adicionarParticipante(contrato:any){
@@ -156,10 +170,6 @@ export class ParticipacaoPage {
       ]
     });
     alert.present();
-  }
-
-  goToContratos(){
-    this.navCtrl.push(ContratoSearchPage, {});
   }
 
   /* Privates  */

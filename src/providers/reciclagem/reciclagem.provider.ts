@@ -3,6 +3,7 @@ import { HttpService } from './../http-service';
 
 import { Observable } from 'rxjs/Rx'
 import { Reciclagem } from '../../domain/reciclagem';
+import { Participacao } from '../../domain/participacao';
 
 @Injectable()
 export class ReciclagemProvider {
@@ -27,6 +28,13 @@ export class ReciclagemProvider {
 
   public getById(id:number): Observable <any>{
     return this.http.get(this._url+'/'+id)
+              .map(res => {
+                return res.json().data;
+              });
+  }
+
+  public getByParticipacao(participacao_id: number): Observable<any>{
+    return this.http.get(this._url+'/searchByParticipacao/'+participacao_id)
               .map(res => {
                 return res.json().data;
               });

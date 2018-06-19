@@ -6,6 +6,7 @@ import { ParticipacaoProvider } from '../../providers/participacao/partipacao.pr
 import { ResiduoProvider } from '../../providers/reciclagem/residuo.provider';
 import { ReciclagemProvider } from '../../providers/reciclagem/reciclagem.provider';
 import { ReciclagemReciboModule } from './reciclagem-recibo/reciclagem-recibo.module';
+import { ReciclagemHistoricoModule } from './reciclagem-historico/reciclagem-historico.module';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import { ReciclagemReciboModule } from './reciclagem-recibo/reciclagem-recibo.mo
   ],
   imports: [
     IonicPageModule.forChild(ReciclagemPage),
-    ReciclagemReciboModule
+    ReciclagemReciboModule,
+    ReciclagemHistoricoModule
   ],
   providers:[
     ParticipacaoProvider, ResiduoProvider, ReciclagemProvider

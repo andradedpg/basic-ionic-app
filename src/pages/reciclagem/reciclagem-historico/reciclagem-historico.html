@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-navbar color="lightrecicla">
+    <ion-buttons left>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  
+  <ion-card> 
+    <ion-item color="lightrecicla" text-center>
+      <ion-icon name="stats" item-start></ion-icon>
+      Histórico de Reciclagens
+    </ion-item>
+          
+  </ion-card>
+
+  <div id="infoReciclagens" *ngIf="reciclagens !== false">
+    <ion-card *ngFor="let reciclagem of reciclagens">
+      <ion-item>
+        <ion-icon name="git-compare" item-start></ion-icon>
+        CÓD: {{ reciclagem.codigo }}
+      </ion-item> <hr>
+      <ion-item>Data:  <b>{{ reciclagem.data_cadastro | date:'dd/MM/yyyy H:m'}}</b></ion-item>
+      <ion-item>Bônus: R$ {{ reciclagem.bonus_total }}</ion-item>
+    </ion-card>
+  </div>
+  
+  
+  <ion-card text-center>
+    <button ion-button icon-start color="danger" (click)="goToParticipacao()">
+      <ion-icon name="return"></ion-icon>
+      Voltar para pesquisa
+    </button>
+  </ion-card>
+  
+</ion-content>
