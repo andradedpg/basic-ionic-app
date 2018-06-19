@@ -1,5 +1,4 @@
 export default {
- 
   _url: 'https://api-lightrecicla.avsi.eco.br/api',
   _client_id: '2',
   _client_secret: 'qfbcOhLQWEJCc4AWrCEspugtWBJGY8Zhpk1lSmuy',
