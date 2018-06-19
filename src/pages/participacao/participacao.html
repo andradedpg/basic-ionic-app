@@ -5,47 +5,50 @@
         <ion-icon name="menu"></ion-icon>
       </button>
     </ion-buttons>
+    <ion-title>Participantes</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
-  <ion-card>    
-    <ion-icon name="contacts" item-start></ion-icon>
-    Procurar Participantes em
-    <ion-item color="lightrecicla">{{ evento_aberto.acao.nome }} - {{ evento_aberto.local.nome }}</ion-item>
-  </ion-card>
-  
-  <ion-searchbar [(ngModel)]="searchTerm" [formControl]="searchControl" (ionInput)="onSearchInput()"  placeholder="Nome ou NUC do Cliente"></ion-searchbar>
-  <div *ngIf="searching" class="spinner-container">
-    <ion-spinner></ion-spinner>
-  </div>
 
-  <ion-list *ngIf="participacoes !== false">
-    <ion-item *ngFor="let participante of participacoes">
-        <ion-card>
-          <ion-card-header>
-            <ion-icon name="contact" item-start></ion-icon>
-            {{participante.cliente.nome}}
-          </ion-card-header>
-          <ion-item>NUC: {{participante.contrato.numero}}</ion-item>
-          
-          <ion-row>
-            <ion-col col-6 *ngFor="let button of buttons"> 
-            <button ion-button icon-start color={{button.color}} (click)="buttonClicked(button, participante)">
-              <ion-icon name={{button.icon}}></ion-icon>
-              {{ button.nome }}
-            </button>
-            </ion-col>  
-          </ion-row>
+      <ion-searchbar [(ngModel)]="searchTerm" [formControl]="searchControl" (ionInput)="onSearchInput()"  placeholder="Nome ou NUC do Cliente"></ion-searchbar>
+      <div *ngIf="searching" class="spinner-container">
+        <ion-spinner></ion-spinner>
+      </div>
+      <div *ngIf="participacoes !== false">
+        
+        <ion-card *ngFor="let participante of participacoes">
+          <ion-item>
+            <ion-row>
+              <ion-col col-12>
+                <p>
+                  <ion-icon name="contact" item-start></ion-icon>
+                  {{participante.cliente.nome}}
+                </p>
+                <p>
+                  <ion-icon name="contact" item-start></ion-icon>
+                  NUC: {{participante.contrato.numero}}
+                </p>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col col-6 *ngFor="let button of buttons"> 
+                <button ion-button block icon-start color={{button.color}} (click)="buttonClicked(button, participante)">
+                  <ion-icon name={{button.icon}}></ion-icon>
+                  {{ button.nome }}
+                </button>
+              </ion-col>  
+            </ion-row>
+          </ion-item>
         </ion-card>
-    </ion-item>
-  </ion-list>
-
-  <ion-card *ngIf="!participacoes" text-center>
-    <button ion-button icon-start color="lightrecicla" (click)="goToContratos()">
-      <ion-icon name="app-person"></ion-icon>
-      OU ADICIONAR UM NOVO
-    </button>
-  </ion-card>
-
-</ion-content>
+      </div>
+      
+      <div *ngIf="!participacoes" text-center style="padding: 2%;">
+        <button ion-button icon-start block color="lightrecicla" (click)="goToContratos()">
+          <ion-icon name="app-person"></ion-icon>
+          OU ADICIONAR UM NOVO
+        </button>
+      </div>
+      
+  </ion-content>
+  

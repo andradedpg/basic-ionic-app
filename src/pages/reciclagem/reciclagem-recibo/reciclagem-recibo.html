@@ -5,53 +5,25 @@
         <ion-icon name="menu"></ion-icon>
       </button>
     </ion-buttons>
+    <ion-title>Realizada com Sucesso
+        <ion-icon name="done-all" item-start></ion-icon>
+    </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
   
-  <ion-card> 
+  <ion-card>    
     <ion-item color="lightrecicla" text-center>
-      <ion-icon name="done-all" item-start></ion-icon>
-      RECICLAGEM REALIZADA!
+      <ion-icon name="paper-plane" item-start></ion-icon>
+      ENVIO DE COMPROVANTES
     </ion-item>
     <ion-item>
       <ion-icon name="stats" item-start></ion-icon>
       CÓD: {{ reciclagem.codigo }}    
     </ion-item>
-          
-  </ion-card>
-
-  <ion-card>    
-    <ion-item color="primary" text-center>
-      <ion-icon name="send" item-start></ion-icon>
-      ENVIO DE COMPROVANTES
-    </ion-item>
     
-    <ion-row>
-      <ion-col col-6> 
-        <button ion-button icon-start color="lightrecicla" (click)="enviarRecibo('SMS')">
-          <ion-icon name="phone-portrait"></ion-icon>
-          SMS
-        </button>
-      </ion-col>
-
-      <ion-col col-6> 
-        <button ion-button icon-start color="primary" (click)="enviarRecibo('EMAIL')">
-          <ion-icon name="mail"></ion-icon>
-          E-mail
-        </button>
-      </ion-col>  
-    </ion-row>
-  </ion-card>
-  
-  <div id="infoReciclagem" *ngIf="reciclagem !== false">
-    <ion-card>    
-      <ion-item color="lightrecicla" text-center>
-        <ion-icon name="information-circle" item-start></ion-icon>
-        DADOS DO CLIENTE
-      </ion-item>   
-
+    <div id="infoReciclagem" *ngIf="reciclagem !== false">
       <ion-item>
         <ion-icon name="contact" item-start></ion-icon>
         {{ reciclagem.participacao.contrato.nomeTitular }}    
@@ -60,15 +32,27 @@
         <ion-icon name="document" item-start></ion-icon>
         {{ reciclagem.participacao.contrato.numero }}
       </ion-item>
-    </ion-card>
     </div>
-
+    <ion-row>
+      <ion-col col-6> 
+        <button ion-button icon-start block outline color="lightrecicla" (click)="enviarRecibo('SMS')">
+          <ion-icon name="phone-portrait"></ion-icon>
+          SMS
+        </button>
+      </ion-col>
+      <ion-col col-6> 
+        <button ion-button icon-start block outline color="primary" (click)="enviarRecibo('EMAIL')">
+          <ion-icon name="mail"></ion-icon>
+          E-mail
+        </button>
+      </ion-col>  
+    </ion-row>
+  </ion-card>
     
-    <ion-card text-center>
-      <button ion-button icon-start color="danger" (click)="goToParticipacao()">
+
+      <button ion-button block color="lightrecicla" (click)="goToParticipacao()">
         <ion-icon name="return"></ion-icon>
         Voltar para pesquisa
       </button>
-    </ion-card>
   
 </ion-content>
