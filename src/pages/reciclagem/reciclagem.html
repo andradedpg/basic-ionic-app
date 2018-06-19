@@ -86,8 +86,8 @@
             <ion-card>
               <ion-card-header>
                   <b>{{ residuoAdded.nome }}</b> 
-                  <p>Peso: <b>{{ residuoAdded.peso }} {{ residuoAdded.medidoem }} </b></p> 
-                  <p>Bônus: <b>R${{ residuoAdded.total }}</b></p>
+                  <p>Peso: <b>{{ residuoAdded.quantidade }} {{ residuoAdded.medidoem }} </b></p> 
+                  <p>Bônus: <b>R${{ residuoAdded.bonus_valor }}</b></p>
               </ion-card-header>
               <button ion-button icon-start color="danger" (click)="removerResiduoAdicionado(i)">
                 <ion-icon name="cancel"></ion-icon>
@@ -99,16 +99,5 @@
         </ion-list>
         
       </ion-card>
-      
-    <button *ngIf="showResiduosAdded" ion-button icon-start color="lightrecicla" (click)="salvarReciclagem()">
-      <ion-icon name="save"></ion-icon>
-      Salvar
-    </button>
-  
+    
 </ion-content>
-
-<ion-footer>
-  <ion-toolbar>
-      AVSI - Brasil [LOGO] & LightRecicla [LOGO]
-  </ion-toolbar>
-</ion-footer>

@@ -8,6 +8,7 @@ import { ResiduoProvider } from '../../providers/reciclagem/residuo.provider';
 
 import { ReciclagemProvider } from '../../providers/reciclagem/reciclagem.provider';
 import { Reciclagem } from '../../domain/reciclagem';
+import { ReciclagemReciboPage } from './reciclagem-recibo/reciclagem-recibo';
 
 @IonicPage({
   name: 'page-reciclagem',
@@ -52,18 +53,14 @@ export class ReciclagemPage {
       
   }
 
-  ionViewDidLoad() {
-    
-  }
-
   adicionarResiduo(){
     if(!this.residuoOnSelected)     return this.alertInfo('Selecione uma resíduo primeiro');
     if(this.inputPeso == undefined) return this.alertInfo('Informe o peso do resíduo');
 
-    this.residuoOnSelected.peso  = this.inputPeso;
+    this.residuoOnSelected.quantidade  = this.inputPeso;
     // Formula do arredondar (?)
-    this.residuoOnSelected.total = (this.residuoOnSelected.peso * this.residuoOnSelected.valor);
-    this.residuoOnSelected.total = this.residuoOnSelected.total.toFixed(2);
+    this.residuoOnSelected.bonus_valor = (this.residuoOnSelected.quantidade * this.residuoOnSelected.valor);
+    this.residuoOnSelected.bonus_valor = this.residuoOnSelected.bonus_valor.toFixed(2);
 
     this.residuosAdded.push(this.residuoOnSelected);
 
@@ -76,7 +73,7 @@ export class ReciclagemPage {
   }
 
   removerResiduoAdicionado(i:number){
-    this.residuosAdded.splice(i);
+    this.residuosAdded.splice(i, 1);
     this.alertInfo('Resíduo removido');
     this.infoReciclagem = this.getInfoTotal();
   }
@@ -86,15 +83,23 @@ export class ReciclagemPage {
   }
 
   salvarReciclagem(){
+    let load = this.loadCtrl.create({content: 'Salvando reciclagem...' });
+    load.present();
+
     let reciclagem:any = {cliente_evento_contrato_id: this.cec_id,
+                          bonus_total: this.infoReciclagem.bonus_total,
+                          bonus_percentual: 100,
                           residuos: this.residuosAdded};
     
-    this.reciclagemProvider.adicionarReciclagem(reciclagem as Reciclagem).then(function(result){
-        console.log(result);
+    this.reciclagemProvider.save(reciclagem).then((success:any) => {
+      load.dismiss();
+      this.alertInfo('Reciclagem Realizada com Sucesso!');
+      
+      this.navCtrl.push(ReciclagemReciboPage, {'id':success.id});
     })
   }
 
-  /** Privates */
+  /* Privates */
   private getEventoAberto():any{
     if(localStorage.getItem('evento_aberto')){
       this.evento_aberto = JSON.parse(localStorage.getItem('evento_aberto'));
@@ -137,8 +142,8 @@ export class ReciclagemPage {
 
     this.residuosAdded.forEach(function(item, i){
       
-      peso_total  += parseFloat(item.peso);
-      bonus_total += parseFloat(item.total);
+      peso_total  += parseFloat(item.quantidade);
+      bonus_total += parseFloat(item.bonus_valor);
 
     });
 
@@ -147,7 +152,6 @@ export class ReciclagemPage {
         bonus_total:String(this.arredondar(bonus_total))
       };
   }
-
 
   private alertInfo(msg:string):void{
     let toast = this.toastCtrl.create({ duration: 2000 }); 

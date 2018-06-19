@@ -12,6 +12,7 @@ import { Evento } from '../../../domain/evento';
 
 import { ContratosPage } from './../contratos';
 import { ContratoValidate } from './../contratos.validate';
+import { ParticipacaoPage } from '../../participacao/participacao';
 
 @IonicPage({
   name: 'contrato-form',
@@ -82,7 +83,8 @@ export class ContratoFormPage {
 
     this.contratoProvider.save(this.contrato).then((success) => {
       loading.dismiss();
-      this.acaoPosSalvar();    
+      console.log(success);
+      this.acaoPosSalvar(success);    
     }).catch((error) => {
       toast.setMessage('Erro no formulário : ' + error);
       toast.present();
@@ -187,11 +189,11 @@ export class ContratoFormPage {
     }
   }
 
-  private acaoPosSalvar() {
+  private acaoPosSalvar(result:any) {
     let msg = (this.contratoId === undefined) ? 'Contrato Cadastrado!' : 'Contrato Editado!';
     let alert = this.alertCtrl.create({
       title: msg,
-      subTitle: 'Ir direto para Reciclagem de '+this.form.value.nomeTitular+' ? ',
+      subTitle: 'Ir direto para Reciclagem de '+result.nomeTitular+' ? ',
       buttons: [
         {
           text: 'Voltar para Contratos',
@@ -203,8 +205,9 @@ export class ContratoFormPage {
         {
           text: 'SIM',
           handler: () => {
-            // Quando a pagina de Reciclagem existir, informar ela aqui
-            console.log('Ir Para reciclagem');
+            this.navCtrl.push(ParticipacaoPage, {
+              'id':result.id
+          });
           }
         }
       ]

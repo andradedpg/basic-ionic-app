@@ -11,7 +11,7 @@ export class ReciclagemProvider {
 
   constructor(public http: HttpService) { }
  
-  adicionarReciclagem(reciclagem: Reciclagem){
+  save(reciclagem: Reciclagem){
     return new Promise((success, reject) => {
         let _error = this._manageMessage;
         let action = this.http.post(this._url, null, JSON.stringify(reciclagem));
@@ -24,6 +24,15 @@ export class ReciclagemProvider {
               });
       });
   }
+
+  public getById(id:number): Observable <any>{
+    return this.http.get(this._url+'/'+id)
+              .map(res => {
+                return res.json().data;
+              });
+  }
+
+
   
 
   /** Privates  */
