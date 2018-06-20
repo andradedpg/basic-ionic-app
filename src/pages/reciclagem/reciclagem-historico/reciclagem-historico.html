@@ -5,19 +5,14 @@
         <ion-icon name="menu"></ion-icon>
       </button>
     </ion-buttons>
+      <ion-title>
+        <ion-icon name="stats"></ion-icon>
+        HISTÓRICO
+    </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  
-  <ion-card> 
-    <ion-item color="lightrecicla" text-center>
-      <ion-icon name="stats" item-start></ion-icon>
-      Histórico de Reciclagens
-    </ion-item>
-          
-  </ion-card>
-
   <div id="infoReciclagens" *ngIf="reciclagens !== false">
     <ion-card *ngFor="let reciclagem of reciclagens">
       <ion-item>
@@ -28,8 +23,7 @@
       <ion-item>Bônus: R$ {{ reciclagem.bonus_total }}</ion-item>
     </ion-card>
   </div>
-  
-  
+    
   <ion-card text-center>
     <button ion-button icon-start color="danger" (click)="goToParticipacao()">
       <ion-icon name="return"></ion-icon>
