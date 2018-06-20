@@ -1,23 +1,39 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
+import { HttpService } from '../http-service';
 
 import { Observable } from 'rxjs/Rx'
 import { Reciclagem } from '../../domain/reciclagem';
 import * as properties from '../../properties/config';
 
+
 @Injectable()
 export class ReciboProvider {
   public reciclagem: Reciclagem;
   private _properties: any;
+  private _urlSendMail:string = '/mail/send';
 
-  constructor(public http: Http) { 
-   }
+  constructor(public http: Http, 
+              public apihttp:HttpService) { 
+
+  }
  
-  enviarEmail(reciclagem: Reciclagem){
-    
+  enviarEmail(reciclagem: Reciclagem, email:string){
+    return new Promise((success, reject) => {
+      let _error = this._manageMessage;
+      let action = this.apihttp.post(this._urlSendMail+'/recibo', null, {reciclagem_id:reciclagem.id, emailTo:email});
+      
+      action.map(res => res.json().data)
+              .toPromise().then(function (data){
+                success(data);
+              }).catch(function (err) {
+                reject(err);
+              });
+    });
+        
   }
 
-  enviarSMS(reciclagem: any, celular):Observable <any>{
+  enviarSMS(reciclagem: any, celular){
     this._properties = this.getSMSProperties();
       
       let msg     = 'LIGHTRECICLA - PEDIDO N:'+ reciclagem.codigo +' em ';
@@ -40,21 +56,21 @@ export class ReciboProvider {
 
       let _options = new RequestOptions({ headers:headers });              
       
-     return this.http.request(this._properties.url+query, _options)
-                      .map(result => {
-                        console.log(result.json());
-                        console.log(result);
-                        return result;
-                      })
-                      .catch((error: Response | any) => {
-                        console.log(error);
-                        return Observable.throw(error.json());
-                      });                
-          
+      return new Promise((success, reject) => {
+        let _error = this._manageMessage;
+        let action = this.http.request(this._properties.url+query);
+        
+        action.map(res => res.json().data)
+              .toPromise().then(function (data){
+                console.log(data);
+                success(data);
+              }).catch(function (err) {
+                console.log(err);
+                reject(err);
+              });
+      }); 
   }
 
-
-  
 
   /** Privates  */
   private getSMSProperties(){

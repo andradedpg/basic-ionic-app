@@ -75,7 +75,15 @@ export class ReciclagemReciboPage {
           text: 'ENVIAR',
           handler: data => {
             if (data.email !== '') {
-              this.reciboProvider.enviarEmail(this.reciclagem);
+              let load  = this.loadCtrl.create({content: 'Enviando E-mail...'});
+              load.present();
+              this.reciboProvider.enviarEmail(this.reciclagem, data.email).then((success) =>{
+                load.dismiss();
+                console.log('sucesso:', success);
+              }).catch((reject)=>{
+                load.dismiss();
+                console.log('error:', reject);
+              })
             } else {
               return false;
             }
@@ -105,11 +113,14 @@ export class ReciclagemReciboPage {
           text: 'ENVIAR',
           handler: data => {
             if (data.celular !== '') {
-              let load  = this.loadCtrl.create({content: 'Buscando reciclagem...'});
+              let load  = this.loadCtrl.create({content: 'Enviando SMS...'});
               load.present();
               this.reciclagem.data = new Date();
-              this.reciboProvider.enviarSMS(this.reciclagem, data.celular).subscribe(result => {
-                console.log(result);
+              this.reciboProvider.enviarSMS(this.reciclagem, data.celular).then((sucess) => {
+                console.log('sucesso: ',sucess);
+                load.dismiss();
+              }).catch((reject) => {
+                console.log('error: ',reject);
                 load.dismiss();
               });
             } else {
