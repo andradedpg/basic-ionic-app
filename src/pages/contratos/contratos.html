@@ -5,19 +5,15 @@
         <ion-icon name="menu"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-title *ngIf="loaded">
-        Olá {{ usuario.nome }}
+    <ion-title>
+        <ion-icon name="contacts" item-start></ion-icon>
+        Contratos 
     </ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
   <ion-card>
-    <ion-card-header>
-        <ion-icon name="contacts" item-start></ion-icon>
-        Contratos 
-    </ion-card-header>
-
     <ion-list>
         <button ion-item *ngFor="let acao of pages" (click)="navegarPara(acao.component)">
             <ion-icon name="{{ acao.icon }}" item-start></ion-icon>
@@ -26,9 +22,3 @@
     </ion-list>
   </ion-card>
 </ion-content>
-
-<ion-footer>
-  <ion-toolbar>
-      AVSI - Brasil [LOGO] & LightRecicla [LOGO]
-  </ion-toolbar>
-</ion-footer>

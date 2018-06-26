@@ -5,17 +5,15 @@
         <ion-icon name="menu"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-title>
-        LIGHTRECICLA
-    </ion-title>
   </ion-navbar>
 </ion-header>
+<img class="logotipo" height="80" width="80" src="assets/img/Light-Recicla-box.png">
 
 <ion-content>
   <div id="conteudo" *ngIf="loaded">
     <ion-card>
       <ion-card-header>
-        {{ usuario.nome }}, <br />bem-vindo de volta!
+        {{ usuario.nome }}, <br />bem vindo de volta!
       </ion-card-header>
     </ion-card>
 
@@ -54,14 +52,14 @@
       <ion-item> {{ evento_aberto.acao.nome }} - {{ evento_aberto.local.nome }} </ion-item>
       <ion-row>
         <ion-col col-5> 
-          <button ion-button icon-start color="danger" (click)="fecharEvento()">
+          <button ion-button icon-start block color="danger" (click)="fecharEvento()">
             <ion-icon name="close-circle"></ion-icon>
             FECHAR
           </button>
         </ion-col>  
 
         <ion-col col-7> 
-          <button ion-button icon-start color="lightrecicla" (click)="goParticipacao()">
+          <button ion-button icon-start block color="lightrecicla" (click)="goParticipacao()">
             <ion-icon name="ios-git-compare"></ion-icon>
             PARTICIPANTES
           </button>

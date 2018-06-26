@@ -1,6 +1,6 @@
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {IonicPage,  NavController,  NavParams,  Slides} from 'ionic-angular';
 import { ModalController, ToastController, LoadingController, AlertController } from 'ionic-angular';
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 
 import { ContratoProvider } from './../../../providers/contrato/contrato.provider';
@@ -29,9 +29,11 @@ export class ContratoFormPage {
 
   public loaded: boolean = false;
   private form : FormGroup;
+  @ViewChild(Slides) slides: Slides;  
 
   contratoId: any;
   title:string;
+  titleIcon: string;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -52,14 +54,16 @@ export class ContratoFormPage {
 
         if(this.contratoId !== undefined && this.contratoId > 0){
           this.title = 'Editar Contrato';
+          this.titleIcon = "create";
           this.getData(this.contratoId);
-
+          
           this.form.controls["local_cadastro"].setValidators(null);
           this.form.controls["como_conheceu"].setValidators(null);
-
+          
           this.form.updateValueAndValidity();
         }else{
           this.title = 'Novo Contrato';
+          this.titleIcon = "person-add";
         }
 
         this.loaded = true;
@@ -111,7 +115,8 @@ export class ContratoFormPage {
   }
 
   formatField(tipo:string, field:string){
-    return this.contratoValidate.define(tipo, field);
+    if(field) return this.contratoValidate.define(tipo, field);
+    return field;
   }
 
   /* Privates  */
@@ -213,6 +218,14 @@ export class ContratoFormPage {
       ]
     });
     alert.present();
+  }
+
+  slideNext(){
+    this.slides.slideNext();
+  }
+
+  slidePrev(){
+    this.slides.slidePrev();
   }
 
 }

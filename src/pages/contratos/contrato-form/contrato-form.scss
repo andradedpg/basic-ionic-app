@@ -12,6 +12,11 @@ contrato-form {
     ion-input{
         text-transform: uppercase;
     }
-    
+    .swiper-button-prev, .swiper-button-next{
+        background-size: 70%;
+        margin-left: -3%;
+        margin-right: -3%;
+    }
 }
+
 

@@ -1,18 +1,20 @@
 <ion-content class="login-content" padding>
   <ion-row class="logo-row">
-    <ion-img src="assets/img/logo-light.jpg" width="320"></ion-img>
+    <!-- <ion-img src="assets/img/logo-light.jpg" width="320"></ion-img> -->
   </ion-row>
   <div class="login-box">
     <form (ngSubmit)="fazerLogin(loginForm.value)" #loginForm="ngForm" id="loginForm">
       <ion-item>
-        <ion-label>
+        <ion-label >
           <ion-icon name="contact"></ion-icon>
+          Usuário:
         </ion-label>
-        <ion-input id="usuario" name="usuario" type="text" ngModel="operador" placeholder="Usuário"></ion-input>
+        <ion-input id="usuario" name="usuario" type="text" ngModel="operador"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label>
           <ion-icon name="key"></ion-icon>
+          Senha:
         </ion-label>
         <ion-input id="senha" name="senha" type="password" ngModel="imag1n3#s3rv1d0r" placeholder="Senha"></ion-input>
       </ion-item>
@@ -21,16 +23,16 @@
         <ion-toggle name="snLembrarMe" ngModel="false" color="lightrecicla"></ion-toggle>
       </ion-item>
       <ion-row>
-        <ion-col col-7>
-            <button ion-button icon-right type="button" color="danger" (click)="recuperarSenha()">
-              NOVA SENHA
-              <ion-icon name="key"></ion-icon>
-            </button>
+        <ion-col col-12>
+          <button ion-button icon-right block type="submit" color="lightrecicla">
+            Login
+            <ion-icon ios="ios-log-in" md="md-log-in"></ion-icon>
+          </button>
         </ion-col>
-        <ion-col col-5>
-            <button ion-button icon-right type="submit" color="lightrecicla">
-              Login
-              <ion-icon ios="ios-log-in" md="md-log-in"></ion-icon>
+        <ion-col col-12>
+            <button ion-button icon-right block outline type="button" color="lightrecicla" (click)="recuperarSenha()">
+              esqueci a senha
+              <ion-icon name="key"></ion-icon>
             </button>
         </ion-col>
       </ion-row>

@@ -33,7 +33,7 @@
             </ion-row>
             <ion-row>
               <ion-col col-4 *ngFor="let button of buttons"> 
-                <button ion-button block icon-start color={{button.color}} (click)="buttonClicked(button, participante)">
+                <button ion-button block icon-start class="histo" color={{button.color}} (click)="buttonClicked(button, participante)">
                   <ion-icon name={{button.icon}}></ion-icon>
                   {{ button.nome }}
                 </button>

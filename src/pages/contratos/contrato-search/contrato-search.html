@@ -5,17 +5,14 @@
         <ion-icon name="menu"></ion-icon>
       </button>
     </ion-buttons>
+    <ion-title>
+      <ion-icon name="contacts" item-start></ion-icon>
+      Pesquisar Contratos
+    </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
-  <ion-card>
-    <ion-card-header>
-        <ion-icon name="contacts" item-start></ion-icon>
-        Pesquisar Contratos
-    </ion-card-header>
-  </ion-card>
-  
   <ion-searchbar [(ngModel)]="searchTerm" [formControl]="searchControl" (ionInput)="onSearchInput()"  placeholder="Nome ou NUC do Cliente"></ion-searchbar>
   <div *ngIf="searching" class="spinner-container">
       <ion-spinner></ion-spinner>

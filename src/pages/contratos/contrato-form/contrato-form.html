@@ -1,3 +1,4 @@
+
 <ion-header>
   <ion-navbar color="lightrecicla">
     <ion-buttons left>
@@ -5,105 +6,143 @@
         <ion-icon name="menu"></ion-icon>
       </button>
     </ion-buttons>
+    <ion-title>
+        <ion-icon name="{{titleIcon}}" item-start></ion-icon>
+        {{ title }}
+    </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content *ngIf="loaded">
-  <ion-card>
-    <ion-card-header>
-        <ion-icon name="contacts" item-start></ion-icon>
-        {{ title }}
-    </ion-card-header>
   <form [formGroup]="form" (ngSubmit)="submitForm()">
-    
-    <ion-item>
-      <ion-label>NUC</ion-label>
-      <ion-input type="number" pattern="[0-9]*" formControlName="numero"></ion-input>
-    </ion-item>
+    <ion-slides padding>
+        <ion-slide>
+          <ion-card>
+            <ion-card-header>
+                Dados Cadastrais
+            </ion-card-header>
+            
+            <ion-row>
+              <ion-col col-12>
+                <ion-item>
+                  <ion-label stacked>NUC:</ion-label>
+                  <ion-input type="number" pattern="[0-9]*" formControlName="numero"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col col-12>
+                <ion-item>
+                  <ion-label stacked>Nome:</ion-label>
+                  <ion-input type="text" [(ngModel)]="nomeTitular" (ionBlur)="nomeTitular = formatField('nomeTitular', nomeTitular)" formControlName="nomeTitular"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col col-12>
+                <ion-item>
+                  <ion-label stacked>CPF:</ion-label>
+                  <ion-input  [(ngModel)]="cpf_cnpj_titular" (ionBlur)="cpf_cnpj_titular = formatField('cpf_cnpj_titular', cpf_cnpj_titular)" formControlName="cpf_cnpj_titular" maxlength=14></ion-input>
+                </ion-item>
+              </ion-col>
+              
+              <ion-col col-12>
+                <ion-item>
+                  <ion-label stacked>Nr do Medidor:</ion-label>
+                  <ion-input type="number" formControlName="numeroMedidor"></ion-input>
+                </ion-item>
+              </ion-col>        
 
-    <ion-item>
-      <ion-label>Nome</ion-label>
-      <ion-input type="text" [(ngModel)]="nomeTitular" (ionBlur)="nomeTitular = formatField('nomeTitular', nomeTitular)" formControlName="nomeTitular"></ion-input>
-    </ion-item>
+              <ion-col col-12>
+                <ion-list radio-group formControlName="tensao">
+                  <ion-item>
+                    <ion-label>Tensão</ion-label>
+                  </ion-item>
+                  <ion-item>
+                    <ion-label stacked>110v</ion-label>
+                    <ion-radio value="1" checked></ion-radio>
+                  </ion-item>
+                  <ion-item>
+                    <ion-label stacked>220v</ion-label>
+                    <ion-radio value="2"></ion-radio>
+                  </ion-item>
+                </ion-list>
+              </ion-col>
+            </ion-row>
+          </ion-card>  
+        </ion-slide>
 
-    <ion-item>
-      <ion-label>CPF:</ion-label>
-      <ion-input type="text" [(ngModel)]="cpf_cnpj_titular" (ionBlur)="cpf_cnpj_titular = formatField('cpf_cnpj_titular', cpf_cnpj_titular)" formControlName="cpf_cnpj_titular" maxlength=14></ion-input>
-    </ion-item>
-    
-    <ion-item-divider></ion-item-divider>
-    
-    <ion-item>
-        <ion-label>Nr do Medidor:</ion-label>
-        <ion-input type="text" formControlName="numeroMedidor"></ion-input>
-      </ion-item>
+        <ion-slide>
+          <ion-card>
+            <ion-card-header>
+              Endereço
+            </ion-card-header> 
+            <ion-row>
+              <ion-col col-12>
+                <ion-item>
+                  <ion-label stacked>CEP</ion-label>
+                  <ion-input type="number" formControlName="cep"  maxlength="8" (keyup)="getEndereco($event)"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col col-12>
+                <ion-item>
+                  <ion-textarea formControlName="infoEndereco">
+                  </ion-textarea>
+                </ion-item>
+              </ion-col>
+              <ion-col col-12>
+                <ion-item>
+                  <ion-label stacked>Logradouro</ion-label>
+                  <ion-input type="text" formControlName="endereco"></ion-input>
+                </ion-item>
+              </ion-col>            
+              <ion-col col-12>
+                <ion-item>
+                  <ion-label stacked>Número</ion-label>
+                  <ion-input type="text" formControlName="numeroEndereco"></ion-input>
+                </ion-item>
+              </ion-col>            
+              
+              <ion-col col-12>
+                <ion-item>
+                  <ion-label stacked>Complemento</ion-label>
+                  <ion-input type="text" formControlName="complementoEndereco"></ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          </ion-card>
+        </ion-slide>
+          
+        <ion-slide *ngIf="contratoId === undefined">
+          <ion-card>
+          <ion-card-header>
+            Local de Cadastro
+          </ion-card-header> 
+          <ion-item>
+            <ion-input type="text" formControlName="local_cadastro"></ion-input>
+          </ion-item>
+          <ion-list radio-group formControlName="como_conheceu">
+            <ion-item>
+              <ion-label stacked>Como Conheceu o Projeto?</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-label stacked>Publicidade</ion-label>
+              <ion-radio value="PBL" checked color="lightrecicla"></ion-radio>
+            </ion-item>
+            <ion-item>
+              <ion-label stacked>Mobilização</ion-label>
+              <ion-radio value="MOB" checked color="lightrecicla"></ion-radio>
+            </ion-item>
+          </ion-list>
+        </ion-card>
+      </ion-slide>
+    </ion-slides>
+    <ion-row>
+      <ion-col col-12>
+        <button block ion-button type="submit" color="lightrecicla" [disabled]="!form.valid">
+            <ion-icon name="person-add"></ion-icon>
+            Salvar
+        </button>
+      </ion-col>
+    </ion-row>
+    <div class="swiper-button-next" (click)="slideNext()"></div>
+    <div class="swiper-button-prev" (click)="slidePrev()"></div>
+  </form>
 
-    <ion-list radio-group formControlName="tensao">
-      <ion-item>
-          <ion-label>Tensão</ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-label>110v</ion-label>
-        <ion-radio value="1" checked color="lightrecicla"></ion-radio>
-      </ion-item>
-      <ion-item>
-        <ion-label>220v</ion-label>
-        <ion-radio value="2" color="lightrecicla"></ion-radio>
-      </ion-item>
-    </ion-list>
-    
-    <ion-item-divider></ion-item-divider>
-    
-    <ion-item>
-      <ion-label>CEP</ion-label>
-      <ion-input type="number" formControlName="cep"  maxlength="8" (keyup)="getEndereco($event)"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-textarea formControlName="infoEndereco">
-      </ion-textarea>
-    </ion-item>
-
-    <ion-item>
-      <ion-label>Logradouro</ion-label>
-      <ion-input type="text" formControlName="endereco"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label>Número</ion-label>
-      <ion-input type="text" formControlName="numeroEndereco"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label>Complemento</ion-label>
-      <ion-input type="text" formControlName="complementoEndereco"></ion-input>
-    </ion-item>
-
-    <ion-item-divider></ion-item-divider>
-
-    <ion-item *ngIf="contratoId === undefined">
-      <ion-label>Local do Cadastro</ion-label>
-      <ion-input type="text" formControlName="local_cadastro"></ion-input>
-    </ion-item>
-
-    <ion-list *ngIf="contratoId === undefined" radio-group formControlName="como_conheceu">
-      <ion-item>
-          <ion-label>Como Conheceu o Projeto?</ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-label>Publicidade</ion-label>
-        <ion-radio value="PBL" checked color="lightrecicla"></ion-radio>
-      </ion-item>
-      <ion-item>
-        <ion-label>Mobilização</ion-label>
-        <ion-radio value="MOB" checked color="lightrecicla"></ion-radio>
-      </ion-item>
-    </ion-list>
-
-    <button ion-button type="submit" color="lightrecicla" [disabled]="!form.valid">
-        <ion-icon name="person-add"></ion-icon>
-        Salvar
-    </button>
-    </form>
-  </ion-card>  
 </ion-content>
