@@ -51,7 +51,6 @@ export class ReciclagemHistoricoPage {
 
     this.participacaoProvider.getById(participacao_id).subscribe(participante =>{
       this.participante = participante;
-      console.log(this.participante);
       load.dismiss();
     });
   }
