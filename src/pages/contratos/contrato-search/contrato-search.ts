@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, ToastController } from 'ionic-angular';
 import { FormControl } from '@angular/forms';
 
 import { ContratoProvider } from './../../../providers/contrato/contrato.provider';
 import { Contrato } from '../../../domain/contrato';
+import { Evento } from '../../../domain/evento';
 
 import { ContratoFormPage } from './../contrato-form/contrato-form';
 import { ParticipacaoPage } from '../../participacao/participacao';
@@ -19,8 +20,13 @@ export class ContratoSearchPage {
     contratos: any;
     searching: any = false;
     buttons: any;
+    public evento_aberto: Evento;
  
-    constructor(public navCtrl: NavController, public contratoProvider: ContratoProvider) {
+    constructor(public navCtrl: NavController, 
+                public contratoProvider: ContratoProvider,
+                public toastCtrl: ToastController) {
+        
+        this.getEventoAberto();            
         this.searchControl = new FormControl();
         this.acoes();
     }
@@ -60,5 +66,21 @@ export class ContratoSearchPage {
             this.contratos = false;
         }
         
+    }
+
+    private getEventoAberto():any{
+        if(localStorage.getItem('evento_aberto')){
+            this.evento_aberto = JSON.parse(localStorage.getItem('evento_aberto'));
+            return true;
+        }else{
+            let toast = this.toastCtrl.create({ duration: 1500 });
+            let self = this;
+            toast.setMessage('Selecione um evento antes de continuar!');
+            toast.present();
+            toast.onDidDismiss(() => {
+                self.navCtrl.setRoot('HomePage');
+            });
+            return false;
+        }
     }
 }

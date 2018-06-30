@@ -7,7 +7,6 @@ import { ContratoProvider } from './../../../providers/contrato/contrato.provide
 import { EnderecoProvider } from '../../../providers/endereco/endereco.provider';
 
 import { Contrato } from './../../../domain/contrato';
-import { Cliente } from './../../../domain/cliente';
 import { Evento } from '../../../domain/evento';
 
 import { ContratosPage } from './../contratos';

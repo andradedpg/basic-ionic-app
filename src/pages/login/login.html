@@ -9,19 +9,21 @@
           <ion-icon name="contact"></ion-icon>
           Usuário:
         </ion-label>
-        <ion-input id="usuario" name="usuario" type="text" ngModel="operador"></ion-input>
+        <ion-input id="usuario" name="usuario" type="text" ngModel=""></ion-input>
       </ion-item>
       <ion-item>
         <ion-label>
           <ion-icon name="key"></ion-icon>
           Senha:
         </ion-label>
-        <ion-input id="senha" name="senha" type="password" ngModel="imag1n3#s3rv1d0r" placeholder="Senha"></ion-input>
+        <ion-input id="senha" name="senha" type="password" ngModel="" placeholder="Senha"></ion-input>
       </ion-item>
-      <ion-item>
+      
+      <!-- <ion-item>
         <ion-label>Lembrar-me</ion-label>
         <ion-toggle name="snLembrarMe" ngModel="false" color="lightrecicla"></ion-toggle>
-      </ion-item>
+      </ion-item> -->
+      
       <ion-row>
         <ion-col col-12>
           <button ion-button icon-right block type="submit" color="lightrecicla">
@@ -29,12 +31,14 @@
             <ion-icon ios="ios-log-in" md="md-log-in"></ion-icon>
           </button>
         </ion-col>
+        <!--
         <ion-col col-12>
             <button ion-button icon-right block outline type="button" color="lightrecicla" (click)="recuperarSenha()">
               esqueci a senha
               <ion-icon name="key"></ion-icon>
             </button>
         </ion-col>
+        -->
       </ion-row>
     </form>
   </div>

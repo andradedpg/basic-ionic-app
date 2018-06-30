@@ -17,7 +17,11 @@ export class EventoProvider {
 
   getDisponiveis(): Observable<Evento[]>{
       return this.http.get(this._url+'/search/disponiveis')
-                      .map(res => { return res.json().data as Evento[]});
+                      .map(res => {
+                        let eventos = res.json().data.filter((evento) => evento.acao.nome === 'ECOPONTOS');
+                        return eventos as Evento[]; 
+                        //return res.json().data as Evento[] // Retorando todos os eventos (Parceiros e EcoPontos)
+                      });
   }
   
   getByID(id:number): Observable<Evento>{
