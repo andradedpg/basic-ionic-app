@@ -41,7 +41,7 @@ export class ReciclagemReciboPage {
   }
 
   goToParticipacao(){
-    this.navCtrl.popTo(ParticipacaoPage);
+    this.navCtrl.push(ParticipacaoPage);
   }
 
   /* Privates */

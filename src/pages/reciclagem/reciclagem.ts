@@ -57,19 +57,29 @@ export class ReciclagemPage {
     if(!this.residuoOnSelected)     return this.alertInfo('Selecione uma resíduo primeiro');
     if(this.inputPeso == undefined) return this.alertInfo('Informe o peso do resíduo');
 
+    let load = this.loadCtrl.create({content: 'Adicionando resíduo...' });
+    load.present();
+
     this.residuoOnSelected.quantidade  = this.inputPeso;
     // Formula do arredondar (?)
     this.residuoOnSelected.bonus_valor = (this.residuoOnSelected.quantidade * this.residuoOnSelected.valor);
     this.residuoOnSelected.bonus_valor = this.residuoOnSelected.bonus_valor.toFixed(2);
 
-    this.residuosAdded.push(this.residuoOnSelected);
-
+    this.residuosAdded.push({bonus_valor:this.residuoOnSelected.bonus_valor,
+                             medidoem: this.residuoOnSelected.medidoem,
+                             nome: this.residuoOnSelected.nome,
+                             quantidade: this.residuoOnSelected.quantidade,
+                             recurso_id: this.residuoOnSelected.recurso_id,
+                             valor: this.residuoOnSelected.valor});
+    
     this.inputPeso         = undefined;
     this.residuoOnSelected = false;
     this.showInputPeso     = false;
 
     if(!this.showResiduosAdded) this.showResiduosAdded = true;
     this.infoReciclagem = this.getInfoTotal();
+    
+    load.dismiss();
   }
 
   removerResiduoAdicionado(i:number){
@@ -165,6 +175,5 @@ export class ReciclagemPage {
     valor = (valor >= parseFloat('0.005') && valor <= parseFloat('0.009')) ? parseFloat('0.01') : valor;
     return Math.floor(valor * 100) / 100;
   }
-
 
 }

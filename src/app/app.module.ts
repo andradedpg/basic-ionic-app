@@ -13,7 +13,7 @@ import { NativeGeocoder } from '@ionic-native/native-geocoder';
 import { LaunchNavigator } from '@ionic-native/launch-navigator';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
-import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+//import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 // import { ZBar } from '@ionic-native/zbar';
 
 // Pages
@@ -72,7 +72,6 @@ import 'rxjs/add/operator/toPromise';
     ScreenOrientation,
     Clipboard,
     LoaderService,
-    BarcodeScanner,
     CameraServiceProvider,
     Camera
   ],
