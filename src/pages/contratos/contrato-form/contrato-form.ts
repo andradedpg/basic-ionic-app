@@ -86,7 +86,6 @@ export class ContratoFormPage {
 
     this.contratoProvider.save(this.contrato).then((success) => {
       loading.dismiss();
-      console.log(success);
       this.acaoPosSalvar(success);    
     }).catch((error) => {
       toast.setMessage('Erro no formulário : ' + error);
@@ -161,14 +160,14 @@ export class ContratoFormPage {
   
   private formatData():Contrato{
     let contrato: Contrato               = this.form.value;
-        contrato.cpf_cnpj_titular        = this.form.value.cpf_cnpj_titular.replace('.', '').replace('-', ''),
+        contrato.cpf_cnpj_titular        = this.form.value.cpf_cnpj_titular.replace(/\./g, '').replace(/-/g, ''),
         contrato.status                  = 'A';
         
     if(this.contratoId !== undefined && this.contratoId > 0) {
       contrato.id = this.contratoId;
     }else{
     let cliente: any =     {nome:this.form.value.nomeTitular,
-                            cpf:this.form.value.cpf_cnpj,
+                            cpf:contrato.cpf_cnpj_titular,
                             evento_id:this.evento_aberto.id,
                             como_conheceu:this.form.value.como_conheceu};      
       contrato.cliente = cliente;

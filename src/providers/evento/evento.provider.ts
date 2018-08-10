@@ -2,8 +2,8 @@ import { HttpService } from './../http-service';
 import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs/Rx'
-import { of } from 'rxjs/observable/of';
-import { catchError, map, tap } from 'rxjs/operators';
+//import { of } from 'rxjs/observable/of';
+//import { catchError, map, tap } from 'rxjs/operators';
 import 'rxjs/add/operator/toPromise';
 
 import { Evento } from '../../domain/evento';

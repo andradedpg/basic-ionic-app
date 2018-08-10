@@ -21,6 +21,21 @@
       </ion-item> <hr>
       <ion-item>Data:  <b>{{ reciclagem.data_cadastro | date:'dd/MM/yyyy H:m'}}</b></ion-item>
       <ion-item>Bônus: R$ {{ reciclagem.bonus_total }}</ion-item>
+      <ion-row>
+        <p>Reenvio de comprovantes</p>
+        <ion-col col-6> 
+          <button ion-button icon-start block outline color="lightrecicla" (click)="enviarRecibo('SMS', reciclagem.id)">
+            <ion-icon name="phone-portrait"></ion-icon>
+            SMS
+          </button>
+        </ion-col>
+        <ion-col col-6> 
+          <button ion-button icon-start block outline color="primary" (click)="enviarRecibo('EMAIL', reciclagem.id)">
+            <ion-icon name="mail"></ion-icon>
+            E-mail
+          </button>
+        </ion-col>  
+      </ion-row>
     </ion-card>
   </div>
     

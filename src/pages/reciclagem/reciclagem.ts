@@ -7,7 +7,7 @@ import { Participacao } from '../../domain/participacao';
 import { ResiduoProvider } from '../../providers/reciclagem/residuo.provider';
 
 import { ReciclagemProvider } from '../../providers/reciclagem/reciclagem.provider';
-import { Reciclagem } from '../../domain/reciclagem';
+//import { Reciclagem } from '../../domain/reciclagem';
 import { ReciclagemReciboPage } from './reciclagem-recibo/reciclagem-recibo';
 
 @IonicPage({
@@ -70,7 +70,9 @@ export class ReciclagemPage {
                              nome: this.residuoOnSelected.nome,
                              quantidade: this.residuoOnSelected.quantidade,
                              recurso_id: this.residuoOnSelected.recurso_id,
-                             valor: this.residuoOnSelected.valor});
+                             valor: this.residuoOnSelected.valor,
+                             reciclador_id: this.residuoOnSelected.reciclador_id,
+                             vigencia_id: this.residuoOnSelected.vigencia_id});
     
     this.inputPeso         = undefined;
     this.residuoOnSelected = false;

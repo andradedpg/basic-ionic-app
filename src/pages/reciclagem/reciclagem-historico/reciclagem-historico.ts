@@ -5,8 +5,9 @@ import { ReciclagemProvider } from '../../../providers/reciclagem/reciclagem.pro
 import { ReciboProvider } from '../../../providers/reciclagem/recibo.provider';
 import { ParticipacaoProvider } from '../../../providers/participacao/partipacao.provider';
 
-import { Reciclagem } from '../../../domain/reciclagem';
+//import { Reciclagem } from '../../../domain/reciclagem';
 import { ParticipacaoPage } from '../../participacao/participacao';
+import { Placeholder } from '@angular/compiler/src/i18n/i18n_ast';
 
 @IonicPage({
   name: 'page-reciclagem-historico',
@@ -35,9 +36,9 @@ export class ReciclagemHistoricoPage {
       this.getReciclagems(this.navParams.get('id'));
   }
 
-  enviarRecibo(tipo:string){
-    if(tipo === 'EMAIL') this.promptEmail();
-    if(tipo === 'SMS')   this.promptSMS();
+  enviarRecibo(tipo:string, reciclagem_id){
+    if(tipo === 'EMAIL') this.prompt(reciclagem_id, 'email');
+    if(tipo === 'SMS')   this.prompt(reciclagem_id, 'sms');
   }
 
   goToParticipacao(){
@@ -66,13 +67,31 @@ export class ReciclagemHistoricoPage {
     });
   }
 
-  private promptEmail(){
+  private prompt(reciclagem_id, forma:string){
+    this.reciclagemProvider.getById(reciclagem_id)  
+                           .subscribe(reciclagem => {
+                              this.showPrompt(reciclagem, forma);              
+                           });
+  }
+
+  private showPrompt(reciclagem, forma:string){
+    let title, input, placeholder;
+    if(forma === 'email'){
+      title = 'E-mail';
+      input = 'email';
+      placeholder = 'email@provedor.com';
+    }else if(forma === 'sms'){
+      title = 'SMS';
+      input = 'celular';
+      placeholder = '99 9 9999 9999';
+    }
+
     let alert = this.alertCtrl.create({
-      title: 'Recibo via E-mail',
+      title: 'Recibo via '+title,
       inputs: [
         {
-          name: 'email',
-          placeholder: 'email@provedor.com',
+          name: input,
+          placeholder: placeholder,
           value: ''//this.reciclagem.participacao.cliente.email
         }
       ],
@@ -84,49 +103,37 @@ export class ReciclagemHistoricoPage {
         {
           text: 'ENVIAR',
           handler: data => {
-            if (data.email !== '') {
-              //this.reciboProvider.enviarEmail(this.reciclagem);
-            } else {
-              return false;
+            if(forma === 'email'){
+              if (data.email !== '') {
+                let load  = this.loadCtrl.create({content: 'Enviando E-mail...'});
+                load.present();
+                this.reciboProvider.enviarEmail(reciclagem, data.email).then((success) =>{
+                  load.dismiss();
+                  console.log('sucesso:', success);
+                }).catch((reject)=>{
+                  load.dismiss();
+                  console.log('error:', reject);
+                })
+              } else {
+                return false;
+              }
+            }else if(forma === 'sms'){
+              if (data.celular !== '') {
+                let load  = this.loadCtrl.create({content: 'Enviando SMS...'});
+                load.present();
+                reciclagem.data = new Date();
+                this.reciboProvider.enviarSMS(reciclagem, data.celular).then((sucess) => {
+                  console.log('sucesso: ',sucess);
+                  load.dismiss();
+                }).catch((reject) => {
+                  console.log('error: ',reject);
+                  load.dismiss();
+                });
+              } else {
+                return false;
+              }
             }
-          }
-        }
-      ]
-    });
-    alert.present();
-  }
-
-  private promptSMS(){
-    let alert = this.alertCtrl.create({
-      title: 'Recibo SMS',
-      inputs: [
-        {
-          name: 'celular',
-          placeholder: '99 99999 9999',
-          value:''// this.reciclagem.participacao.cliente.celular
-        }
-      ],
-      buttons: [
-        {
-          text: 'Desistir',
-          role: 'cancel'
-        },
-        {
-          text: 'ENVIAR',
-          handler: data => {
-            if (data.celular !== '') {
-              /*
-              let load  = this.loadCtrl.create({content: 'Buscando reciclagem...'});
-              load.present();
-              this.reciclagem.data = new Date();
-              this.reciboProvider.enviarSMS(this.reciclagem, data.celular).subscribe(result => {
-                console.log(result);
-                load.dismiss();
-              });
-              */
-            } else {
-              return false;
-            }
+            
           }
         }
       ]

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import { HttpService } from '../http-service';
 
-import { Observable } from 'rxjs/Rx'
+//import { Observable } from 'rxjs/Rx'
 import { Reciclagem } from '../../domain/reciclagem';
 import * as properties from '../../properties/config';
 

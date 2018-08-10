@@ -6,7 +6,7 @@ import { RequestOptions } from '@angular/http';
 
 import { Observable } from 'rxjs/Rx'
 import { of } from 'rxjs/observable/of';
-import { catchError, map, tap } from 'rxjs/operators';
+//import { catchError, map, tap } from 'rxjs/operators';
 import 'rxjs/add/operator/toPromise';
  
 import { User } from './../../domain/user';

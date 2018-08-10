@@ -4,7 +4,7 @@
     <description>
         Aplicativo dos operadores da AVSI BRASIL no Projeto LIGHT RECICLA
     </description>
-	<author email="suporte@imagineapps.com.br" href="http://www.imagineapps.com.br">
+    <author email="suporte@imagineapps.com.br" href="http://www.imagineapps.com.br">
         Imagine Apps
     </author>
     <content src="index.html" />
@@ -95,5 +95,6 @@
     <plugin name="cordova-plugin-nativestorage" spec="^2.2.2" />
     <plugin name="cordova-plugin-network-information" spec="^2.0.1" />
     <plugin name="me.tonny.cordova.plugins.multidex" spec="https://github.com/jwall149/cordova-multidex" />
+    <plugin name="onesignal-cordova-plugin" spec="^2.4.1" />
     <engine name="android" spec="^6.4.0" />
 </widget>
