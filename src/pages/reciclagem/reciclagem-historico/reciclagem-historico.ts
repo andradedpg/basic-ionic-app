@@ -7,7 +7,6 @@ import { ParticipacaoProvider } from '../../../providers/participacao/partipacao
 
 //import { Reciclagem } from '../../../domain/reciclagem';
 import { ParticipacaoPage } from '../../participacao/participacao';
-import { Placeholder } from '@angular/compiler/src/i18n/i18n_ast';
 
 @IonicPage({
   name: 'page-reciclagem-historico',
