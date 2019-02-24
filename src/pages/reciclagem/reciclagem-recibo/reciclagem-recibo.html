@@ -48,11 +48,27 @@
       </ion-col>  
     </ion-row>
   </ion-card>
+
+  <ion-card *ngIf="campanhas !== false && showCampanhas !== false">
+    <ion-item color="lightrecicla" text-center>
+      <ion-icon name="megaphone" item-start></ion-icon>
+      CAMPANHAS ATIVAS!
+    </ion-item>
+    <ion-row *ngFor="let campanha of campanhas">
+      <ion-item>
+        {{ campanha.nome }}
+      </ion-item>
+      <button ion-button icon-start block outline color="lightrecicla" (click)="participarCampanha(campanha.id)">
+        <ion-icon name="person-add"></ion-icon>
+        Participar
+      </button>
+    </ion-row>
+  </ion-card>
     
 
-      <button ion-button block color="lightrecicla" (click)="goToParticipacao()">
-        <ion-icon name="return"></ion-icon>
-        Voltar para pesquisa
-      </button>
+  <button ion-button block color="lightrecicla" (click)="goToParticipacao()">
+    <ion-icon name="return"></ion-icon>
+    Voltar para pesquisa
+  </button>
   
 </ion-content>

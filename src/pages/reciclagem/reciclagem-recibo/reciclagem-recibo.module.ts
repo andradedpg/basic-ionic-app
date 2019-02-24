@@ -4,6 +4,7 @@ import { IonicPageModule } from 'ionic-angular';
 import { ReciclagemReciboPage } from './reciclagem-recibo';
 import { ReciclagemProvider } from '../../../providers/reciclagem/reciclagem.provider';
 import { ReciboProvider } from '../../../providers/reciclagem/recibo.provider';
+import { CampanhaProvider } from '../../../providers/campanhas/campanha.provider';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,7 @@ import { ReciboProvider } from '../../../providers/reciclagem/recibo.provider';
     IonicPageModule.forChild(ReciclagemReciboPage),
   ],
   providers:[
-    ReciclagemProvider, ReciboProvider
+    ReciclagemProvider, ReciboProvider, CampanhaProvider
   ]
 })
 export class ReciclagemReciboModule {}
