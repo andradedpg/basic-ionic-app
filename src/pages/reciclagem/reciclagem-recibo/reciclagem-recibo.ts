@@ -116,12 +116,13 @@ export class ReciclagemReciboPage {
               let load  = this.loadCtrl.create({content: 'Enviando SMS...'});
               load.present();
               this.reciclagem.data = new Date();
-              this.reciboProvider.enviarSMS(this.reciclagem, data.celular).then((sucess) => {
-                console.log('sucesso: ',sucess);
+              this.reciboProvider.enviarSMS(this.reciclagem, data.celular).subscribe((retorno:any) => {
                 load.dismiss();
-              }).catch((reject) => {
-                console.log('error: ',reject);
-                load.dismiss();
+                let toast = this.toastCtrl.create({ duration: 1500 });
+                let msg = (retorno._body === '000') ? 'SMS Enviado com Sucesso!' : 'Falha no Envio! Tente mais tarde';
+
+                toast.setMessage(msg);
+                toast.present();
               });
             } else {
               return false;

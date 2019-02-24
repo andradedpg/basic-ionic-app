@@ -6,7 +6,6 @@ import { HttpService } from '../http-service';
 import { Reciclagem } from '../../domain/reciclagem';
 import * as properties from '../../properties/config';
 
-
 @Injectable()
 export class ReciboProvider {
   public reciclagem: Reciclagem;
@@ -54,8 +53,11 @@ export class ReciboProvider {
       let headers = new Headers();
       headers.append('Content-Type', '');
 
-      let _options = new RequestOptions({ headers:headers });              
+      let _options = new RequestOptions({ headers:headers });
       
+      return this.http.get(this._properties.url+query);
+
+      /*
       return new Promise((success, reject) => {
         let _error = this._manageMessage;
         let action = this.http.request(this._properties.url+query);
@@ -68,7 +70,8 @@ export class ReciboProvider {
                 console.log(err);
                 reject(err);
               });
-      }); 
+      });
+      */ 
   }
 
 

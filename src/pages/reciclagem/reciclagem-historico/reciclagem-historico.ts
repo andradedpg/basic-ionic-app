@@ -102,6 +102,7 @@ export class ReciclagemHistoricoPage {
         {
           text: 'ENVIAR',
           handler: data => {
+            let self = this;
             if(forma === 'email'){
               if (data.email !== '') {
                 let load  = this.loadCtrl.create({content: 'Enviando E-mail...'});
@@ -121,12 +122,13 @@ export class ReciclagemHistoricoPage {
                 let load  = this.loadCtrl.create({content: 'Enviando SMS...'});
                 load.present();
                 reciclagem.data = new Date();
-                this.reciboProvider.enviarSMS(reciclagem, data.celular).then((sucess) => {
-                  console.log('sucesso: ',sucess);
+                this.reciboProvider.enviarSMS(reciclagem, data.celular).subscribe((retorno:any) => {
                   load.dismiss();
-                }).catch((reject) => {
-                  console.log('error: ',reject);
-                  load.dismiss();
+                  let toast = this.toastCtrl.create({ duration: 1500 });
+                  let msg = (retorno._body === '000') ? 'SMS Enviado com Sucesso!' : 'Falha no Envio! Tente mais tarde';
+
+                  toast.setMessage(msg);
+                  toast.present();
                 });
               } else {
                 return false;

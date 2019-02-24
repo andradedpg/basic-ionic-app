@@ -52,16 +52,20 @@ export class ParticipacaoPage {
   }
 
   ionViewDidLoad() {
+    this.searchByNUC();
+    /*
     this.setFilteredItems();
+    
     this.searchControl.valueChanges.debounceTime(700).subscribe(search => {    
         this.setFilteredItems();
     });
+    */
   }
 
   onSearchInput(){
     this.searching = true;
   }
-
+  /*
   setFilteredItems() {
     if(this.searchTerm != ''){
         let busca = this.participacaoProvider.searchInEvento(this.evento_aberto, this.searchTerm.toUpperCase());
@@ -73,6 +77,20 @@ export class ParticipacaoPage {
         this.participacoes = false;
         this.searching     = false;
     }  
+  }
+  */
+
+  searchByNUC(){
+    if(this.searchTerm != ''){
+      let busca = this.participacaoProvider.searchInEvento(this.evento_aberto, this.searchTerm.toUpperCase());
+      busca.subscribe(result => {
+          this.participacoes = result as Participacao[];
+          this.searching     = false;
+      })
+    }else{
+        this.participacoes = false;
+        this.searching     = false;
+    }
   }
 
   acoes() {

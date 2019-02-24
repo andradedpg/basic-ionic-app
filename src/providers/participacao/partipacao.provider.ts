@@ -23,7 +23,8 @@ export class ParticipacaoProvider {
         this._searchQuery += item+':'+term+';';
      }
      
-     this._searchQuery += '&searchFields=cliente.nome:like;contrato.numero:like;'
+     //this._searchQuery += '&searchFields=cliente.nome:like;contrato.numero:like;'
+     this._searchQuery += '&searchFields=contrato.numero:=;'
     
      return this.http.get(this._url+'/searchByEvento/'+evento.id+this._searchQuery)
                      .map(res =>{ 
