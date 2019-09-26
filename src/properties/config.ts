@@ -9,5 +9,9 @@ export default {
    _servico_sms_url: 'http://pw-api.com/sms/v_3_00/smspush/enviasms.aspx',
    _servico_sms_credencial: '35C99368C6D48EC12BE4B34569131D1739566034',
    _servico_sms_token: '1D1F9d',
-   _servico_sms_user: 'LIGHTRECICLA' 
+   _servico_sms_user: 'LIGHTRECICLA', 
+
+   _servico_sms_zenvia_url : 'https://api-rest.zenvia.com',
+   _servico_sms_zenvia_account: 'avsi.smsonline',
+   _servico_sms_zenvia_password: 'aVkHqv2LUa'
 }

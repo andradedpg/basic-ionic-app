@@ -61,7 +61,6 @@ export class ReciclagemHistoricoPage {
 
     this.reciclagemProvider.getByParticipacao(participacao_id).subscribe(reciclagens =>{
       this.reciclagens = reciclagens;
-      console.log(this.reciclagens);
       load.dismiss();
     });
   }
@@ -74,15 +73,17 @@ export class ReciclagemHistoricoPage {
   }
 
   private showPrompt(reciclagem, forma:string){
-    let title, input, placeholder;
+    let title, input, placeholder, inputvalue;
     if(forma === 'email'){
       title = 'E-mail';
       input = 'email';
       placeholder = 'email@provedor.com';
+      inputvalue = reciclagem.participacao.cliente.celular;
     }else if(forma === 'sms'){
       title = 'SMS';
       input = 'celular';
       placeholder = '99 9 9999 9999';
+      inputvalue = reciclagem.participacao.cliente.celular;
     }
 
     let alert = this.alertCtrl.create({
@@ -91,7 +92,7 @@ export class ReciclagemHistoricoPage {
         {
           name: input,
           placeholder: placeholder,
-          value: ''//this.reciclagem.participacao.cliente.email
+          value: inputvalue
         }
       ],
       buttons: [
@@ -120,16 +121,25 @@ export class ReciclagemHistoricoPage {
             }else if(forma === 'sms'){
               if (data.celular !== '') {
                 let load  = this.loadCtrl.create({content: 'Enviando SMS...'});
+                let mobile = data.celular;
                 load.present();
                 reciclagem.data = new Date();
-                this.reciboProvider.enviarSMS(reciclagem, data.celular).subscribe((retorno:any) => {
-                  load.dismiss();
+                
+                let send = this.reciboProvider.enviarSMS(reciclagem, mobile);
+                if(send){
+                  load.dismiss();  
                   let toast = this.toastCtrl.create({ duration: 1500 });
-                  let msg = (retorno._body === '000') ? 'SMS Enviado com Sucesso!' : 'Falha no Envio! Tente mais tarde';
 
-                  toast.setMessage(msg);
+                  toast.setMessage('SMS Enviado com Sucesso!');
                   toast.present();
-                });
+                }else{
+                  load.dismiss();
+                  
+                  let toast = this.toastCtrl.create({ duration: 1500 });
+                  toast.setMessage('Houve um erro ao enviar o SMS :(');
+                  toast.present();
+                }
+
               } else {
                 return false;
               }
@@ -139,6 +149,7 @@ export class ReciclagemHistoricoPage {
         }
       ]
     });
+
     alert.present();
   }
 

@@ -45,7 +45,7 @@ export class ReciclagemReciboPage {
   }
 
   goToParticipacao(){
-    this.navCtrl.push(ParticipacaoPage);
+    this.navCtrl.setRoot(ParticipacaoPage);
   }
 
   participarCampanha(campanha_id){
@@ -129,16 +129,23 @@ export class ReciclagemReciboPage {
           handler: data => {
             if (data.celular !== '') {
               let load  = this.loadCtrl.create({content: 'Enviando SMS...'});
-              load.present();
+              let mobile = data.celular;
               this.reciclagem.data = new Date();
-              this.reciboProvider.enviarSMS(this.reciclagem, data.celular).subscribe((retorno:any) => {
-                load.dismiss();
+              
+              let send = this.reciboProvider.enviarSMS(this.reciclagem, mobile);
+              if(send){
+                load.dismiss();  
                 let toast = this.toastCtrl.create({ duration: 1500 });
-                let msg = (retorno._body === '000') ? 'SMS Enviado com Sucesso!' : 'Falha no Envio! Tente mais tarde';
 
-                toast.setMessage(msg);
+                toast.setMessage('SMS Enviado com Sucesso!');
                 toast.present();
-              });
+              }else{
+                load.dismiss();
+                
+                let toast = this.toastCtrl.create({ duration: 1500 });
+                toast.setMessage('Houve um erro ao enviar o SMS :(');
+                toast.present();
+              }
             } else {
               return false;
             }

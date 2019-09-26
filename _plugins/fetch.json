@@ -1,0 +1,150 @@
+{
+  "cordova-plugin-whitelist": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-whitelist@^1.3.3"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-device": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-device@^2.0.1"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-splashscreen": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-splashscreen@^5.0.2"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-ionic-webview": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-ionic-webview@^1.1.16"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-ionic-keyboard": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-ionic-keyboard@^2.0.5"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-camera": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-camera@^4.0.2"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-clipboard": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-clipboard@^1.1.1"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-nativegeocoder": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-nativegeocoder@^3.0.0"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-screen-orientation": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-screen-orientation@^3.0.1"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "es6-promise-plugin": {
+    "source": {
+      "type": "registry",
+      "id": "es6-promise-plugin@^4.1.0"
+    },
+    "is_top_level": false,
+    "variables": {}
+  },
+  "uk.co.workingedge.phonegap.plugin.launchnavigator": {
+    "source": {
+      "type": "registry",
+      "id": "uk.co.workingedge.phonegap.plugin.launchnavigator@^4.1.3"
+    },
+    "is_top_level": true,
+    "variables": {
+      "OKHTTP_VERSION": "3.+"
+    }
+  },
+  "cordova-plugin-actionsheet": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-actionsheet@2"
+    },
+    "is_top_level": false,
+    "variables": {}
+  },
+  "cordova-plugin-dialogs": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-dialogs@*"
+    },
+    "is_top_level": false,
+    "variables": {}
+  },
+  "phonegap-plugin-barcodescanner": {
+    "source": {
+      "type": "registry",
+      "id": "phonegap-plugin-barcodescanner@^7.0.2"
+    },
+    "is_top_level": true,
+    "variables": {
+      "ANDROID_SUPPORT_V4_VERSION": "27.+"
+    }
+  },
+  "cordova-plugin-nativestorage": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-nativestorage@^2.2.2"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-network-information": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-network-information@^2.0.1"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "me.tonny.cordova.plugins.multidex": {
+    "source": {
+      "type": "registry",
+      "id": "https://github.com/jwall149/cordova-multidex"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "onesignal-cordova-plugin": {
+    "source": {
+      "type": "registry",
+      "id": "onesignal-cordova-plugin"
+    },
+    "is_top_level": true,
+    "variables": {}
+  }
+}
